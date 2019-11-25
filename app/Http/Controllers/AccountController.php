@@ -43,12 +43,13 @@ class AccountController extends Controller
             'name.min'              => 'Tên chứa ít nhất 3 ký tự'
         ];
         $validator = Validator::make($request->all(), $rules, $messages);
+
         if($validator->fails()) {
             return redirect()->back()->withInput()->withErrors($validator);
         }else {
             $email = $request->input('email');
             $password = $request->input('password');
-            $user= User::where('email', '=', $email)->get();
+            $user = User::where('email', '=', $email)->get();
             if(count($user)) {
                 $errors = new MessageBag(['errorComfirmEmail' => 'Email đã được sử dụng']);
                 return redirect('/register')->withInput()->withErrors($errors);
@@ -76,8 +77,44 @@ class AccountController extends Controller
             // Mail::to($request->email)->send(new ConfirmUser($code_confirm, $user->name));
 
             // return redirect('/confirm');
-            return $user;
+            // return $user;
+            return redirect('/login');
         }
         return redirect('/');
+    }
+
+    public function postLogin(Request $request) {
+        // return $request->password;
+        $rules = [
+    		'email' => 'required|min:6',
+    		'password' => 'required|min:6'
+    	];
+
+    	$messages = [
+    		'email.required'  => 'Email không được để trống',
+    		'email.min'		 => 'Email chứa ít nhất 6 ký tự', 
+    		'password.required' => 'Mật khẩu không được để trống',
+    		'password.min'		=> 'Mật khẩu phải chứa ít nhất 6 ký tự'
+    	];
+
+    	$validator = Validator::make($request->all(), $rules, $messages);
+
+    	if($validator->fails()){
+    		return redirect()->back()->withErrors($validator);
+        }
+        
+    	$email = $request->input('email');
+    	$password = $request->input('password');
+
+    	if(Auth::attempt(['email' => $email, 'password' => $password, 'level' => 2])){
+            
+    		return redirect('/admin');
+    	}else if(Auth::attempt(['email' => $email, 'password' => $password,'level' => 1])){
+            
+    		return redirect('/');
+    	}else{
+    		$errors = new MessageBag(['errorLogin' => 'Tên đăng nhập hoặc mật khẩu không chính xác']);
+    		return redirect()->back()->withErrors($errors);
+    	}
     }
 }

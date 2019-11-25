@@ -16,5 +16,14 @@ Route::get('/', function () {
 });
 
 Route::get('/login', 'AccountController@getLogin');
+Route::post('/login', 'AccountController@postLogin')->name('login');
 Route::get('/register', 'AccountController@getRegister');
 Route::post('/register', 'AccountController@postRegister')->name('register');
+Route::post('/logout', function() {
+    Auth::logout();
+    return redirect('/');
+});
+Route::get('/logout', function() {
+    Auth::logout();
+    return redirect('/');
+});

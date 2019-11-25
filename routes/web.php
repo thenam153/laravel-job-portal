@@ -27,3 +27,11 @@ Route::get('/logout', function() {
     Auth::logout();
     return redirect('/');
 });
+Route::get('/confirmuser/{code}', 'AccountController@confirm');
+Route::get('/confirm', function() {
+    return view('mail.confirm');
+});
+Route::get('/forget', 'AccountController@getForget');
+Route::post('/forget', 'AccountController@postForget')->name('forget');
+
+Route::post('/reset', 'AccountController@postReset')->name('reset');

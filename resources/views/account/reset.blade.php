@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 	<title>Login V3</title>
+    <base href="{{ asset('') }}">
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -32,49 +33,44 @@
 	<div class="limiter">
 		<div class="container-login100" style="background-image: url('images/bg-01.jpg');">
 			<div class="wrap-login100">
-				<form class="login100-form validate-form" method="post" action="{{ route('login') }}">
+				<form class="login100-form validate-form" method="post" action="{{ route('reset') }}">
 					@csrf
 					<span class="login100-form-logo">
 						<i class="zmdi zmdi-landscape"></i>
 					</span>
 
 					<span class="login100-form-title p-b-34 p-t-27">
-						Log in
+						Reset password
 					</span>
 					@if($errors->has('errorLogin'))
-					<div class="alert alert-danger">
-						<strong style="display: block; text-align: center;">
-							{{$errors->first('errorLogin')}}</strong>
-					</div>
-					@endif
-					<div class="wrap-input100 validate-input" data-validate = "Enter email">
-						<input class="input100" type="text" name="email" placeholder="Email">
-						<span class="focus-input100" data-placeholder="&#xf207;"></span>
-					</div>
+                        <div class="alert alert-danger">
+                            <strong style="display: block; text-align: center;">
+                                {{$errors->first('errorLogin')}}</strong>
+                        </div>
+                    @endif
 
 					<div class="wrap-input100 validate-input" data-validate="Enter password">
 						<input class="input100" type="password" name="password" placeholder="Password">
 						<span class="focus-input100" data-placeholder="&#xf191;"></span>
 					</div>
 
-					<div class="contact100-form-checkbox">
-						<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember">
-						<label class="label-checkbox100" for="ckb1">
-							Remember me
-						</label>
+                    <div class="wrap-input100 validate-input" data-validate="Enter re password">
+						<input class="input100" type="password" name="rePassword" placeholder="Password">
+						<span class="focus-input100" data-placeholder="&#xf191;"></span>
 					</div>
+                    @if($errors->has('errorPassword'))
+                        <div class="alert alert-danger">
+                            <strong style="display: block; text-align: center;">
+                                {{$errors->first('errorPassword')}}</strong>
+                        </div>
+                    @endif
 
 					<div class="container-login100-form-btn">
 						<button class="login100-form-btn">
-							Login
+							Reset
 						</button>
 					</div>
 
-					<div class="text-center p-t-90">
-						<a class="txt1" href="/forget">
-							Forgot Password?
-						</a>
-					</div>
 					<div class="text-center p-t-10">
 						<a class="txt1" href="/register">
 							Don't have account?

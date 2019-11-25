@@ -7,7 +7,12 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\MessageBag;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Mail;
 use App\User;
+use App\Mail\ConfirmUser;
+use App\Mail\RegisterUser;
+use App\Confirm;
+
 class AccountController extends Controller
 {
     //
@@ -67,18 +72,17 @@ class AccountController extends Controller
 
             $user->save();
 
-            // $code = new Confirm();
-            // $code->user_id= $user->id;
-            // $code_confirm= str_random(50);
-            // $code->code= $code_confirm;
-            // $code->status=0;
-            // $code->save();
+            $code = new Confirm();
+            $code->user_id= $user->id;
+            $code_confirm= str_random(50);
+            $code->code= $code_confirm;
+            $code->status=0;
+            $code->save();
 
-            // Mail::to($request->email)->send(new ConfirmUser($code_confirm, $user->name));
+            Mail::to($request->email)->send(new ConfirmUser($code_confirm, $user->name));
 
-            // return redirect('/confirm');
-            // return $user;
-            return redirect('/login');
+            return redirect('/confirm');
+            // return redirect('/login');
         }
         return redirect('/');
     }

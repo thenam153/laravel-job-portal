@@ -7,7 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class ConfirmUser.php extends Mailable
+class ConfirmUser extends Mailable
 {
     use Queueable, SerializesModels;
 

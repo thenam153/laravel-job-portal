@@ -11,10 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::get('/login', 'AccountController@getLogin');
 Route::post('/login', 'AccountController@postLogin')->name('login');
 Route::get('/register', 'AccountController@getRegister');
@@ -28,10 +24,16 @@ Route::get('/logout', function() {
     return redirect('/');
 });
 Route::get('/confirmuser/{code}', 'AccountController@confirm');
+
 Route::get('/confirm', function() {
     return view('mail.confirm');
 });
 Route::get('/forget', 'AccountController@getForget');
+
 Route::post('/forget', 'AccountController@postForget')->name('forget');
 
 Route::post('/reset', 'AccountController@postReset')->name('reset');
+
+Route::get('/', function () {
+    return view('product.index');
+});

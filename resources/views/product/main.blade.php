@@ -37,6 +37,8 @@
 
             @yield('popular')
 
+			@yield('content')
+			
             @yield('area')
 				
             @yield('calltoaction')

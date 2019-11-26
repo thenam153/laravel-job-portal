@@ -8,7 +8,7 @@ Trang chủ
 @endsection
 
 @section('banner')
-@include('product.modules.banner-catalog')
+@include('product.modules.banner-category')
 @endsection
 
 @section('popular')

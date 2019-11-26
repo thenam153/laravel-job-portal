@@ -34,6 +34,20 @@ Route::post('/forget', 'AccountController@postForget')->name('forget');
 
 Route::post('/reset', 'AccountController@postReset')->name('reset');
 
-Route::get('/', function () {
+Route::get('/', function() {
     return view('product.index');
 });
+Route::get('/index', function() {
+    return view('product.index');
+});
+Route::get('/category', function() {
+    return view('product.category');
+});
+Route::get('/postproject', function() {
+    return view('product.postproject');
+});
+Route::get('/myproject', function() {
+    return view('product.myproject');
+});
+
+

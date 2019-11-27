@@ -112,7 +112,7 @@ class AccountController extends Controller
 
     	if(Auth::attempt(['email' => $email, 'password' => $password, 'level' => 2])){
             
-    		return redirect('/admin');
+    		return redirect('/index');
     	}else if(Auth::attempt(['email' => $email, 'password' => $password,'level' => 1])){
             
     		return redirect('/');

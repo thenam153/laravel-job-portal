@@ -34,20 +34,14 @@ Route::post('/forget', 'AccountController@postForget')->name('forget');
 
 Route::post('/reset', 'AccountController@postReset')->name('reset');
 
-Route::get('/', function() {
-    return view('product.index');
-});
-Route::get('/index', function() {
-    return view('product.index');
-});
-Route::get('/category', function() {
-    return view('product.category');
-});
-Route::get('/postproject', function() {
-    return view('product.postproject');
-});
-Route::get('/myproject', function() {
-    return view('product.myproject');
-});
+Route::get('/', 'ProductController@index');
+Route::get('/index', 'ProductController@index');
+Route::get('/category', 'ProductController@getCategory');
+Route::get('/postproject', 'ProductController@getSubmitProject');
+Route::get('/myproject', 'ProductController@getMyProject');
+
+Route::post('/category', 'ProductController@postCategory');
+Route::post('/postproject', 'ProductController@postSubmitProject')->name('postproject');
+Route::post('/myproject', 'ProductController@postMyProject');
 
 

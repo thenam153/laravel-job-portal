@@ -62,7 +62,18 @@
 			<script src="js/mail-script.js"></script>	
             <script src="js/main-product.js"></script>	
             @yield('js')
-            @yield('script')
+			@yield('script')
+			<script>
+				(function($) {
+					'use strict';
+					$('#change1').on('click', function() {
+						console.log('1');
+					})
+					$('#change2').on('click', function() {
+						console.log('1');
+					})
+				})(jQuery);
+			</script>
 		</body>
 	</html>
 

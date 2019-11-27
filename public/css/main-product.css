@@ -1989,7 +1989,10 @@ h1, h2, h3, h4, h5, h6 {
   padding: 4px 10px !important;
   text-transform: uppercase !important;
 }
-
+.menu-has-children ul li {
+  padding: 4px 10px !important;
+  text-transform: uppercase !important;
+}
 /* Nav Menu Arrows */
 .sf-arrows .sf-with-ul {
   padding-right: 30px;
@@ -2037,6 +2040,16 @@ h1, h2, h3, h4, h5, h6 {
   outline: none;
 }
 
+.nav-menu span {
+  padding: 6px 10px;
+  text-decoration: none;
+  display: inline-block;
+  color: #fff;
+  font-weight: 400;
+  font-size: 12px;
+  text-transform: uppercase;
+  outline: none;
+}
 .nav-menu > li {
   margin-left: 10px;
 }

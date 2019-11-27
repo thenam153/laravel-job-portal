@@ -10,10 +10,10 @@
 				          <li><a href="category">Danh mục</a></li>
 				          <li><a href="postproject">Đăng bài</a></li>
 				          <li><a href="myproject">Dự án của tôi</a></li>
-						  <li class="menu-has-children">Vai trò
+						  <li class="menu-has-children"><a href="javascript:void(0)">Vai trò </a>
 				            <ul>
-								<li><button id="change1"> Người tuyển dụng </button></li>
-								<li><button id="change2"> Người tìm việc </button></li>
+								<li><a id="change1" href="javascript:void(0)"> Người tuyển dụng </a></li>
+								<li><a id="change2" href="javascript:void(0)"> Người tìm việc </a></li>
 				            </ul>
 				          </li>
 				          <li><a class="ticker-btn" href="#">Signup</a></li>

@@ -34,7 +34,7 @@ class CreateTableProject extends Migration
 
             $table->enum('status', ['start', 'active', 'done']);	
 
-            $table->date('endDate');
+            $table->date('endDate')->nullable();
 
             $table->timestamps();
         });

@@ -7,5 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Fk_skill_user extends Model
 {
     //
-    protected $table = "fk_skill_user";
+    public $timestamps = false;
+    protected $table = "fk_skill_users";
 }

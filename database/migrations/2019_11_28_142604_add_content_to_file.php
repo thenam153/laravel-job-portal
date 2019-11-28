@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddContactToUser extends Migration
+class AddContentToFile extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class AddContactToUser extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('files', function (Blueprint $table) {
             //
-            $table->text('contact')->nullable()->after('phone');
+            $table->text('content')->after('idProject');
         });
     }
 
@@ -26,9 +26,8 @@ class AddContactToUser extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('files', function (Blueprint $table) {
             //
-            $table->text('contact')->nullable()->after('phone');
         });
     }
 }

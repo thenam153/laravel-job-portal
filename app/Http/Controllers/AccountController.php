@@ -47,6 +47,7 @@ class AccountController extends Controller
             'phone.regex' => 'Số chứng minh thư à?',
             'name.min'              => 'Tên chứa ít nhất 3 ký tự'
         ];
+
         $validator = Validator::make($request->all(), $rules, $messages);
 
         if($validator->fails()) {
@@ -80,9 +81,8 @@ class AccountController extends Controller
             $code->save();
 
             Mail::to($request->email)->send(new ConfirmUser($code_confirm, $user->name));
-
+            Auth::logout();
             return redirect('/confirm');
-            // return redirect('/login');
         }
         return redirect('/');
     }
@@ -111,7 +111,6 @@ class AccountController extends Controller
     	$password = $request->input('password');
 
     	if(Auth::attempt(['email' => $email, 'password' => $password, 'level' => 2])){
-            
     		return redirect('/index');
     	}else if(Auth::attempt(['email' => $email, 'password' => $password,'level' => 1])){
             

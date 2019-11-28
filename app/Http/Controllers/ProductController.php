@@ -9,6 +9,15 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 
+use App\Category;
+use App\Fk_file_project;
+use App\Fk_skill_user;
+use App\Project;
+use App\RequestTable;
+use App\Skill;
+use App\User;
+use App\File;
+
 class ProductController extends Controller
 {
     //
@@ -23,11 +32,11 @@ class ProductController extends Controller
     }
     public function getSubmitProject()
     {   
-        // dd(Auth::user());
         if(Auth::user() === null || !Auth::user()->level) {
             return redirect('/login');
         }
-        return view('product.postproject');
+        $categorys = Category::all();
+        return view('product.postproject', compact('categorys'));
     }
     public function getMyProject()
     {
@@ -40,16 +49,34 @@ class ProductController extends Controller
     }
     public function postSubmitProject(Request $request)
     {
-        return $request;
-        // Storage::url($request->file('files')->store('public'));
-        // dd($request->file('files')->store('public'));
-        // foreach ($request->file('files') as $file) {
-            
-        //     $file->move('casd','sdasd');
+        $project = new Project();
+        if(trim($request->name) !== '' && $request->price > 0) {
+            $project->idUser = Auth::user()->id;
+            $project->name = $request->name;
+            $project->content = $request->content;
+            $project->idCategory = $request->category;
+            $project->price = $request->price;
+            $project->save();
+            if($request->file('files')!== null) {
+                foreach($request->file('files') as $fileStorage) {
+                    if($fileStorage->extension() == 'png'|| $fileStorage->extension() == 'jpeg' || $fileStorage->extension() == 'jpg' || $fileStorage->extension() == 'gif' || $fileStorage->extension() == 'doc' || $fileStorage->extension() == 'docx') {
+                        $file = new File();
+                        $file->content = Storage::url($fileStorage->store('public'));
+                        $file->idProject = $project->id;
+                        $file->save();
 
-        //     array_push($links, $file->store('name','public'));   
-        // }
-        // return $links;
+                        $fk = new Fk_file_project();
+                        $fk->idFile = $file->id;
+                        $fk->idProject = $project->id;
+                        $fk->save();
+                    }
+                }
+            }
+            return redirect('/myproject');
+        }else{
+            $errors = new MessageBag(['error' => 'Đã xảy ra lỗi vui lòng thử lại']);
+            return redirect()->back()->withInput()->withErrors($errors);
+        }
     }
     public function postMyProject()
     {

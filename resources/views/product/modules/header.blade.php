@@ -16,8 +16,8 @@
 								<li><a id="change2" href="javascript:void(0)"> Người tìm việc </a></li>
 				            </ul>
 				          </li>
-				          <li><a class="ticker-btn" href="#">Signup</a></li>
-				          <li><a class="ticker-btn" href="#">Login</a></li>				          				          
+				          <li><a class="ticker-btn" href="/register">Đăng ký</a></li>
+				          <li><a class="ticker-btn" href="/login">Login</a></li>				          				          
 				        </ul>
 				      </nav><!-- #nav-menu-container -->		    		
 			    	</div>

@@ -40,16 +40,16 @@ class ProductController extends Controller
     }
     public function postSubmitProject(Request $request)
     {
-        $links = [];
-        Storage::url($request->file('files')->store('public'));
-        dd($request->file('files')->store('public'));
-        foreach ($request->file('files') as $file) {
+        return $request;
+        // Storage::url($request->file('files')->store('public'));
+        // dd($request->file('files')->store('public'));
+        // foreach ($request->file('files') as $file) {
             
-            $file->move('casd','sdasd');
+        //     $file->move('casd','sdasd');
 
-            array_push($links, $file->store('name','public'));   
-        }
-        return $links;
+        //     array_push($links, $file->store('name','public'));   
+        // }
+        // return $links;
     }
     public function postMyProject()
     {

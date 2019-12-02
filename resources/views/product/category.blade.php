@@ -16,7 +16,7 @@ Trang chủ
 @endsection
 
 @section('area')
-@include('product.modules.area')
+@include('product.modules.category')
 @endsection
 
 @section('calltoaction')

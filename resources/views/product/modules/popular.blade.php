@@ -1,4 +1,4 @@
-<!-- Start popular-post Area -->
+<!-- 
 <section class="popular-post-area pt-100">
 		<div class="container">
 			<div class="row align-items-center">
@@ -24,5 +24,5 @@
 				</div>
 			</div>
 		</div>	
-	</section>
-			<!-- End popular-post Area -->
+	</section> -->
+			

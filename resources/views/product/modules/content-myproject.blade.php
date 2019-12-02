@@ -21,7 +21,7 @@
 								<div class="details" style="width: 100%;">
 									<div class="title d-flex flex-row justify-content-between">
 										<div class="titles">
-											<a href="single.html"><h4>{{$project->name}}</h4></a>
+											<a href="/project/{{$project->id}}"><h4>{{$project->name}}</h4></a>
 											<!-- <h6>Premium Labels Limited</h6>					 -->
 										</div>
 										<ul class="btns">

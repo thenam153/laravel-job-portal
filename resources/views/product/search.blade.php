@@ -8,11 +8,15 @@ Trang chủ
 @endsection
 
 @section('banner')
-@include('product.modules.banner-project')
+@include('product.modules.banner-search')
+@endsection
+
+@section('popular')
+@include('product.modules.popular')
 @endsection
 
 @section('area')
-@include('product.modules.project')
+@include('product.modules.area-search')
 @endsection
 
 @section('calltoaction')

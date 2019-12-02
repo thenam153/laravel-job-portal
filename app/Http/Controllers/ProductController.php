@@ -40,13 +40,67 @@ class ProductController extends Controller
             ->get();
             $project->files = array();
             foreach($files as $file) {
-                
-                $project->files[] = $file->content;
+                if($file !== null) $project->files[] = $file->content;
             }
             $project->nameCategory = Category::find($project->idCategory)->name;
         }
-
         return view('product.index', compact(['projects', 'categorys']));
+    }
+    public function getSearch(Request $request)
+    {
+        $categorys = Category::getCategory();
+        if($request->search != null) {
+            $search = $request->search;
+            $idCategory = $request->category;
+            if($request->category == 0) {
+                $projects = DB::table('projects')
+                ->where('projects.name', 'like', '%'.$request->search.'%')
+                ->orWhere('projects.content', 'like', '%'.$request->search.'%')
+                ->paginate(6);
+                foreach($projects as $project) {
+                    $category = Category::find($project->idCategory);
+                    $project->nameCategory = $category->name;
+                    $project->contentCategory = $category->content;
+                    $project->skills = json_decode($project->skills);
+                    if(!is_array($project->skills)) $project->skills = [];
+                    $files = DB::table('files')
+                    ->where('idProject', $project->id)
+                    ->get();
+                    $project->files = array();
+                    foreach($files as $file) {
+                        if($file !== null) $project->files[] = $file->content;
+                    }
+                    $project->nameCategory = Category::find($project->idCategory)->name;
+                }
+                return view('product.search', compact(['projects', 'categorys', 'search', 'idCategory']));
+            }else {
+                $category = Category::find($request->category);
+                if($category == null) return redirect('/index');
+                $projects = DB::table('projects')
+                ->where('idCategory', $category->id)
+                ->where('projects.name', 'like', '%'.$request->search.'%')
+                ->orWhere('projects.content', 'like', '%'.$request->search.'%')
+                ->paginate(6);
+                foreach($projects as $project) {
+                    $category = Category::find($project->idCategory);
+                    $project->nameCategory = $category->name;
+                    $project->contentCategory = $category->content;
+                    $project->skills = json_decode($project->skills);
+                    if(!is_array($project->skills)) $project->skills = [];
+                    $files = DB::table('files')
+                    ->where('idProject', $project->id)
+                    ->get();
+                    $project->files = array();
+                    foreach($files as $file) {
+                        if($file !== null) $project->files[] = $file->content;
+                    }
+                    $project->nameCategory = Category::find($project->idCategory)->name;
+                }
+                return view('product.search', compact(['projects', 'categorys', 'search', 'idCategory']));
+            }
+        }else {
+            return redirect('/index');
+        }
     }
     public function getCategory($id = null)
     {   
@@ -74,8 +128,9 @@ class ProductController extends Controller
             ->get();
             $project->files = array();
             foreach($files as $file) {
+                if($file !== null) $project->files[] = $file->content;
                 
-                $project->files[] = $file->content;
+                // $project->files[] = $file->content;
             }
             $project->nameCategory = Category::find($project->idCategory)->name;
         }
@@ -107,8 +162,9 @@ class ProductController extends Controller
             ->get();
             $project->files = array();
             foreach($files as $file) {
+                if($file !== null) $project->files[] = $file->content;
                 
-                $project->files[] = $file->content;
+                // $project->files[] = $file->content;
             }
             $project->nameCategory = Category::find($project->idCategory)->name;
         }
@@ -170,5 +226,34 @@ class ProductController extends Controller
                 // not done
             }
         }
+    }
+    public function getProject($id)
+    {
+        if($id === null) return redirect('/index');
+
+        $categorys = Category::getCategory();
+        $project = Project::find($id);
+        if($project === null) return redirect('/index');
+        $category = Category::find($project->idCategory);
+        $project->nameCategory = $category->name;
+        $project->contentCategory = $category->content;
+        $project->skills = json_decode($project->skills);
+
+        if(!is_array($project->skills)) $project->skills = [];
+
+        $files = DB::table('files')
+        ->where('idProject', $project->id)
+        ->get();
+        $project->showFile = false;
+        if(count($files) !== 0) {
+            $project->file = $files[0]->content;
+            $project->showFile = true;
+        }
+        // $project->files = array();
+        // foreach($files as $file) {
+        //     $project->files[] = $file->content;
+        // }
+        $project->nameCategory = Category::find($project->idCategory)->name;
+        return view('product.project', compact('project', 'categorys'));
     }
 }

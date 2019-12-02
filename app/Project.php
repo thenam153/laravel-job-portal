@@ -12,7 +12,7 @@ class Project extends Model
     {
         return $this->belongsTo('App\User', 'user', 'id');
     }
-    public function files() {
-        $this->hasMany('App\Fk_file_projects', 'idProject');
-    }
+    // public function files() {
+    //     $this->hasMany('App\Fk_file_projects', 'idProject');
+    // }
 }

@@ -28,7 +28,7 @@
 								<div class="details">
 									<div class="title d-flex flex-row justify-content-between">
 										<div class="titles">
-                                            <a href="single.html"><h4>{{$project->name}}</h4></a>
+                                            <a href="/project/{{$project->id}}"><h4>{{$project->name}}</h4></a>
 										</div>
 										<ul class="btns" style="position:absolute;right:26px;">
 											<li><a href="#"><span class="lnr lnr-heart"></span></a></li>

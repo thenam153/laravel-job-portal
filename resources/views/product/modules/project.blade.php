@@ -1,16 +1,14 @@
-<!-- Start post Area -->
 <section class="post-area section-gap">
 				<div class="container">
 					<div class="row justify-content-center d-flex">
 						<div class="col-lg-8 post-list">
-
-                            @foreach($projects as $project)
-							<div class="single-post d-flex flex-row">
+                            <div class="single-post d-flex flex-row">
 								<div class="thumb" style="margin-right: 4em;">
-                                    @if(count($project->files) == 0)
+                                    
+                                    @if(!$project->showFile)
 									<img src="img/post.png" width="160" height="200" alt="{{$project->name}}" title="{{$project->name}}">
 									@else
-									<img src="{{$project->files[0]}}" width="160" height="200" alt="{{$project->name}}" title="{{$project->name}}">
+									<img src="{{$project->file}}" width="160" height="200" alt="{{$project->name}}" title="{{$project->name}}">
 									@endif
 									<ul class="tags" style="width:160px;">
                                         @foreach($project->skills as $skill)
@@ -37,20 +35,36 @@
 									<p class="address"><span class="lnr lnr-database"></span> {{number_format($project->price)}} VNĐ</p>
 								</div>
 							</div>
-                            @endforeach
-                            {{$projects->links()}}
-							<!-- <a class="text-uppercase loadmore-btn mx-auto d-block" href="category.html">Load More job Posts</a> -->
-
+                            <!-- php -->
+							<div class="single-post job-details">
+								<h4 class="single-title">Nội dung dự án</h4>
+								<p>
+									{{$project->content}}
+								</p>
+							</div>
+							<div class="single-post job-experience">
+								<h4 class="single-title">Các kỹ năng cần có</h4>
+								<ul>	
+                                    @foreach($project->skills as $skill)
+                                        <li>
+                                            <img src="img/pages/list.jpg" alt="">
+                                            <span>{{$skill}}</span>
+                                        </li>
+									@endforeach																						
+								</ul>
+							</div>												
 						</div>
+
 						<div class="col-lg-4 sidebar">
                             <div class="single-slidebar">
-                                    <h4>Công việc theo thể loại</h4>
-                                    <ul class="cat-list">
-                                        @foreach($categorys as $category)
-                                        <li><a class="justify-content-between d-flex" href="category/{{$category->id}}"><p>{{$category->name}}</p><span>{{$category->quantily}}</span></a></li>
-                                        @endforeach
-                                    </ul>
-                                </div>
+								<h4>Công việc theo thể loại</h4>
+								<ul class="cat-list">
+									@foreach($categorys as $category)
+									<li><a class="justify-content-between d-flex" href="category/{{$category->id}}"><p>{{$category->name}}</p><span>{{$category->quantily}}</span></a></li>
+									@endforeach
+								</ul>
+							</div>
+
 							<!-- <div class="single-slidebar">
 								<h4>Top rated job posts</h4>
 								<div class="active-relatedjob-carusel">
@@ -91,11 +105,22 @@
 										<a href="#" class="btns text-uppercase">Apply job</a>
 									</div>																		
 								</div>
-							</div>							 -->
+							</div>							
 
-						
+							<div class="single-slidebar">
+								<h4>Jobs by Category</h4>
+								<ul class="cat-list">
+									<li><a class="justify-content-between d-flex" href="category.html"><p>Technology</p><span>37</span></a></li>
+									<li><a class="justify-content-between d-flex" href="category.html"><p>Media & News</p><span>57</span></a></li>
+									<li><a class="justify-content-between d-flex" href="category.html"><p>Goverment</p><span>33</span></a></li>
+									<li><a class="justify-content-between d-flex" href="category.html"><p>Medical</p><span>36</span></a></li>
+									<li><a class="justify-content-between d-flex" href="category.html"><p>Restaurants</p><span>47</span></a></li>
+									<li><a class="justify-content-between d-flex" href="category.html"><p>Developer</p><span>27</span></a></li>
+									<li><a class="justify-content-between d-flex" href="category.html"><p>Accounting</p><span>17</span></a></li>
+								</ul>
+							</div>
 
-							<!-- <div class="single-slidebar">
+							<div class="single-slidebar">
 								<h4>Carrer Advice Blog</h4>
 								<div class="blog-list">
 									<div class="single-blog " style="background:#000 url(img/blog1.jpg);">
@@ -145,9 +170,7 @@
 									</div>																		
 								</div>
 							</div>							 -->
-
 						</div>
 					</div>
 				</div>	
 			</section>
-			<!-- End post Area -->

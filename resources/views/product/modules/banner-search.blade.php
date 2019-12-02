@@ -10,14 +10,18 @@
 							<form action="/search" class="serach-form-area">
 								<div class="row justify-content-center form-wrap">
 									<div class="col-lg-7 form-cols">
-										<input type="text" class="form-control" name="search" placeholder="Bạn đang tìm gì?">
+										<input type="text" class="form-control" name="search" placeholder="Bạn đang tìm gì?" value="{{$search}}">
 									</div>
 									<div class="col-lg-3 form-cols">
 										<div class="default-select" id="default-selects2">
 											<select name="category">
 												<option value="0">Tất cả danh mục</option>
 												@foreach($categorys as $category)
+													@if($category->id == $idCategory)
+													<option value="{{$category->id}}" selected>{{$category->name}}</option>
+													@else
 													<option value="{{$category->id}}">{{$category->name}}</option>
+													@endif
 												@endforeach
 											</select>
 										</div>										

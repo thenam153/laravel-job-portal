@@ -36,6 +36,7 @@ Route::post('/reset', 'AccountController@postReset')->name('reset');
 
 Route::get('/', 'ProductController@index');
 Route::get('/index', 'ProductController@index');
+Route::get('/search', 'ProductController@getSearch');
 Route::get('/category/{id?}', 'ProductController@getCategory');
 // Route::get('/postproject', 'ProductController@getSubmitProject');
 // Route::get('/myproject', 'ProductController@getMyProject');
@@ -43,6 +44,8 @@ Route::get('/category/{id?}', 'ProductController@getCategory');
 Route::post('/category', 'ProductController@postCategory');
 // Route::post('/postproject', 'ProductController@postSubmitProject')->name('postproject');
 // Route::post('/myproject', 'ProductController@postMyProject');
+Route::get('/project/{id}', 'ProductController@getProject');
+
 
 Route::middleware('user')->group(function() {
     Route::get('/postproject', 'ProductController@getSubmitProject');

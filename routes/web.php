@@ -45,7 +45,7 @@ Route::post('/category', 'ProductController@postCategory');
 // Route::post('/postproject', 'ProductController@postSubmitProject')->name('postproject');
 // Route::post('/myproject', 'ProductController@postMyProject');
 Route::get('/project/{id}', 'ProductController@getProject');
-
+Route::any('/get-request', 'ProductController@anyRequest');
 
 Route::middleware('user')->group(function() {
     Route::get('/postproject', 'ProductController@getSubmitProject');
@@ -54,6 +54,8 @@ Route::middleware('user')->group(function() {
     Route::post('/myproject', 'ProductController@postMyProject');
 
     Route::any('/myproject/delete/{id}', 'ProductController@deleteMyProject');
+
+    
 });
 
 

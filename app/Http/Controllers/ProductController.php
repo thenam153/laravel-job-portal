@@ -19,6 +19,9 @@ use App\Skill;
 use App\User;
 use App\File;
 
+use App\Events\ApplyProject;
+
+
 class ProductController extends Controller
 {
     //
@@ -255,5 +258,36 @@ class ProductController extends Controller
         // }
         $project->nameCategory = Category::find($project->idCategory)->name;
         return view('product.project', compact('project', 'categorys'));
+    }
+
+    public function postApply(Request $request)
+    {   
+        $project = Project::find($request->idProject);
+        if($project->idUser === $request->idUser) return response()->json(['error' => 'duplicate' ]);
+        
+        $req = DB::table('requests')
+        ->where('idProject', $request->idProject)
+        ->where('idUserOwner', $project->idUser)
+        ->where('idUserStaff', $request->idUser)
+        ->first();
+        if($req) {
+            return response()->json(['warning' => 'Đã yêu cầu!' ]);
+        }
+        $r = new RequestTable();
+        $r->idProject = $request->idProject;
+        $r->idUserOwner = $project->idUser;
+        $r->idUserStaff = $request->idUser;
+        $r->status = 'pending';
+        $r->save();
+        broadcast(new ApplyProject($project->idUser, $request->idProject, $request->idUser));
+        return response()->json(['success' => 'done' ]);
+    }
+    public function anyRequest(Request $request) {
+        if(!Auth::check()) return response()->json(['error' => 'Please login'], 404);
+        $amount = DB::table('requests')
+        ->groupBy('idUserOwner')
+        ->having('idUserOwner', Auth::id())
+        ->count();
+        return $amount;
     }
 }

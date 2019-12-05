@@ -31,8 +31,13 @@
                                             <a href="/project/{{$project->id}}"><h4>{{$project->name}}</h4></a>
 										</div>
 										<ul class="btns" style="position:absolute;right:26px;">
-											<li><a href="#"><span class="lnr lnr-heart"></span></a></li>
-											<li><a href="#">Apply</a></li>
+											@if(Auth::check())
+											<li><a href="javascript:void(0);"><span class="lnr lnr-heart"></span></a></li>
+											<li><a href="javascript:void(0);" v-on:click="clickApply({{$project->id}})">Apply</a></li>
+											@else
+											<li><a href="/login"><span class="lnr lnr-heart"></span></a></li>
+											<li><a href="/login">Apply</a></li>
+											@endif
 										</ul>
 									</div>
 									<p>

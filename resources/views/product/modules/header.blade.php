@@ -10,14 +10,18 @@
 				          <li><a href="category">Danh mục</a></li>
 				          <li><a href="postproject">Đăng bài</a></li>
 				          <li><a href="myproject">Dự án của tôi</a></li>
-						  <li class="menu-has-children"><a href="javascript:void(0)">Vai trò </a>
-				            <ul>
+						  <li class="menu-has-children"><a href="javascript:void(0)"><span class="fa fa-bell-o" v-text="requests"></span></a>
+						  	<ul>
 								<li><a id="change1" href="javascript:void(0)"> Người tuyển dụng </a></li>
-								<li><a id="change2" href="javascript:void(0)"> Người tìm việc </a></li>
 				            </ul>
-				          </li>
-				          <li><a class="ticker-btn" href="/register">Đăng ký</a></li>
-				          <li><a class="ticker-btn" href="/login">Login</a></li>				          				          
+						</li>
+						  @if(Auth::check())
+						  <li><a class="ticker-btn" href="/user">{{Auth::user()->name}}</a></li>		          				          
+				          <li><a class="ticker-btn" href="/logout">Đăng xuất</a></li>		          				          
+						  @else
+						  <li><a class="ticker-btn" href="/register">Đăng ký</a></li>
+				          <li><a class="ticker-btn" href="/login">Đăng nhập</a></li>
+						  @endif
 				        </ul>
 				      </nav><!-- #nav-menu-container -->		    		
 			    	</div>

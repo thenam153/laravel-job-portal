@@ -26,3 +26,6 @@ Trang chủ
 @section('footer')
 @include('product.modules.footer')
 @endsection
+
+@section('script')
+@endsection

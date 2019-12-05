@@ -70,34 +70,34 @@ $(document).ready(function(){
           $('select').niceSelect();
     };   
 
-    if(document.getElementById("default-selects2")){
-          $('select').niceSelect();
-    };        
+    // if(document.getElementById("default-selects2")){
+    //       $('select').niceSelect();
+    // };        
 
-    $('.img-pop-up').magnificPopup({
-        type: 'image',
-        gallery:{
-        enabled:true
-        }
-    });
+    // $('.img-pop-up').magnificPopup({
+    //     type: 'image',
+    //     gallery:{
+    //     enabled:true
+    //     }
+    // });
 
 
-    $('.play-btn').magnificPopup({
-        type: 'iframe',
-        mainClass: 'mfp-fade',
-        removalDelay: 160,
-        preloader: false,
-        fixedContentPos: false
-    });
+    // $('.play-btn').magnificPopup({
+    //     type: 'iframe',
+    //     mainClass: 'mfp-fade',
+    //     removalDelay: 160,
+    //     preloader: false,
+    //     fixedContentPos: false
+    // });
 
 
   // Initiate superfish on nav menu
-  $('.nav-menu').superfish({
-    animation: {
-      opacity: 'show'
-    },
-    speed: 400
-  });
+  // $('.nav-menu').superfish({
+  //   animation: {
+  //     opacity: 'show'
+  //   },
+  //   speed: 400
+  // });
 
   // Mobile Navigation
   if ($('#nav-menu-container').length) {
@@ -305,9 +305,9 @@ $(document).ready(function(){
     }
 
 
-        $(document).ready(function() {
-            $('#mc_embed_signup').find('form').ajaxChimp();
-        });      
+        // $(document).ready(function() {
+        //     $('#mc_embed_signup').find('form').ajaxChimp();
+        // });      
 
 
 

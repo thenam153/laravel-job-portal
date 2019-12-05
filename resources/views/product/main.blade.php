@@ -15,6 +15,7 @@
 		<!-- meta character set -->
 		<meta charset="UTF-8">
 		<!-- Site Title -->
+		<meta name="csrf-token" content="{{csrf_token()}}">
 		<title>@yield('title')</title>
 
 		<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet"> 
@@ -31,26 +32,25 @@
 			<link rel="stylesheet" href="css/main-product.css">
 		</head>
 		<body>
+			<div id="app">
+				@yield('header')
 
-            @yield('header')
+				@yield('banner')
 
-            @yield('banner')
+				@yield('popular')
 
-            @yield('popular')
-
-			@yield('content')
-			
-            @yield('area')
+				@yield('content')
 				
-            @yield('calltoaction')
-			
-            @yield('footer')
+				@yield('area')
+					
+				@yield('calltoaction')
+			</div>	
+				@yield('footer')
 			
 
 			<script src="js/vendor/jquery-2.2.4.min.js"></script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 			<script src="js/vendor/bootstrap.min.js"></script>			
-			<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
   			<script src="js/easing.min.js"></script>			
 			<script src="js/hoverIntent.js"></script>
 			<script src="js/superfish.min.js"></script>	
@@ -62,8 +62,64 @@
 			<script src="js/parallax.min.js"></script>		
 			<script src="js/mail-script.js"></script>	
             <script src="js/main-product.js"></script>	
+            <script src="js/app.js"></script>	
             @yield('js')
 			@yield('script')
+			<script>
+				var app = new Vue({
+					el: '#app',
+					data: {
+						project: {},
+						user: {!! Auth::check() ? Auth::user()->toJson() : 'null' !!},
+						requests: 0,
+						
+					},
+					mounted() {
+						this.getRequest();
+						this.listen();
+					},
+					methods: {
+						clickApply: function(id) {
+							console.log(id);
+							axios.post(`/api/apply`, {
+								idProject: id,
+								idUser: {!! Auth::check() ? Auth::id() : 'null' !!}
+							})
+							.then((res) => {
+								if(res.data.error) {
+									console.log("Error");
+								}
+								if(res.data.success) {
+									console.log('success');
+								}
+							})
+							.catch((err) => {
+								console.log(err);
+							})
+						},
+						clickHeart: function(id) {
+							console.log(id);
+						},
+						listen: function() {
+							Echo.channel('apply.project.{!! Auth::check() ? Auth::id() : 'null' !!}')
+							.listen('ApplyProject', function(res) {
+								console.log(res);
+							})
+						},
+						getRequest: function() {
+							axios.post(`/get-request`)
+							.then((res) => {
+								console.log(res.data);
+								this.requests = res.data;
+							})
+							.catch((err) => {
+								console.log(err);
+							})
+
+						}
+					}
+				})
+			</script>
 			<script>
 				(function($) {
 					'use strict';

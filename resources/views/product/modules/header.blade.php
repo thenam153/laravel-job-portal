@@ -9,7 +9,8 @@
 				          <li class="menu-active"><a href="index">Trang chủ</a></li>
 				          <li><a href="category">Danh mục</a></li>
 				          <li><a href="postproject">Đăng bài</a></li>
-				          <li><a href="myproject">Dự án của tôi</a></li>
+				          <li><a href="myproject">Dự án đã đăng</a></li>
+				          <li><a href="received">Dự án đã nhận</a></li>
 						  <li class="menu-has-children"><a href="/notify"><span class="fa fa-bell-o" id="amountRequest"></span></a>
 						  	
 						</li>

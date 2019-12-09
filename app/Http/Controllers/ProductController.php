@@ -234,7 +234,6 @@ class ProductController extends Controller
     public function getProject($id)
     {
         if($id === null) return redirect('/index');
-
         $categorys = Category::getCategory();
         $project = Project::find($id);
         if($project === null) return redirect('/index');
@@ -253,12 +252,22 @@ class ProductController extends Controller
             $project->file = $files[0]->content;
             $project->showFile = true;
         }
+        $requests = DB::table('requests')
+        ->where('idUserOwner', Auth::id())
+        ->where('idProject', $project->id)
+        ->where('status', 'pending')
+        ->get();
+        foreach($requests as $req) {
+            $req->owner = User::find($req->idUserOwner);
+            $req->staff = User::find($req->idUserStaff);
+            $req->project = Project::find($req->idProject);
+        }
         // $project->files = array();
         // foreach($files as $file) {
         //     $project->files[] = $file->content;
         // }
         $project->nameCategory = Category::find($project->idCategory)->name;
-        return view('product.project', compact('project', 'categorys'));
+        return view('product.project', compact('project', 'categorys', 'requests'));
     }
 
     public function postApply(Request $request)
@@ -306,6 +315,56 @@ class ProductController extends Controller
         return response()->json(['request' =>  $request, 'amount' => $amount]);;
     }
     public function getNotify() {
-        return view('notify');
+        $requests = DB::table('requests')
+        ->where('idUserOwner', Auth::id())
+        ->get();
+        foreach($requests as $req) {
+            $req->owner = User::find($req->idUserOwner);
+            $req->staff = User::find($req->idUserStaff);
+            $req->project = Project::find($req->idProject);
+        }
+        return view('product.notify', compact('requests'));
+    }
+    public function getReceived()
+    {
+        $requests = DB::table('requests')
+        ->where('idUserStaff', Auth::id())
+        ->get();
+        $projects = [];
+        foreach($requests as $req) {
+            $project = Project::find($req->idProject);
+            $category = Category::find($project->idCategory);
+            $project->nameCategory = $category->name;
+            $project->contentCategory = $category->content;
+            $project->skills = json_decode($project->skills);
+            if(!is_array($project->skills)) $project->skills = [];
+            $files = DB::table('files')
+            ->where('idProject', $project->id)
+            ->get();
+            $project['file'] = null;
+
+            foreach($files as $key => $file) {
+                if($file !== null) $project['file'] = $file->content;
+            break;
+                
+                // $project->files[] = $file->content;
+            }
+            $project->status = $req->status;
+            $projects[] = $project;
+        }
+        return view('product.received', compact('projects'));
+    }
+    public function postReceived() {
+
+    }
+    public function postResponseRequest(Request $request)
+    {
+        $req = RequestTable::find($request->id);
+        if($req->idUserOwner != Auth::id()) {
+            return response()->json(['error' => 'Sai hết rồi'], 404);
+        }
+        $req->status = $request->status;
+        $req->save();
+        return response()->json(['success' => $request->status]);
     }
 }

@@ -1,4 +1,33 @@
 <section class="post-area section-gap">
+				<div class="container" style="margin-bottom:24px; padding:12px;">
+				<!-- border:1px solid;border-radius: 8px; -->
+					<div class="row justify-content-center d-flex">
+						<div class="col-lg-12 post-list">
+						@if(count($requests) != 0)
+							<div class="single-post job-experience" id="section-1-uv">
+								<h4 class="single-title">Ứng cử viên</h4>
+								<ul id="list-uv">
+									@foreach($requests as $req)
+										<li id="request-{{$req->id}}">
+											<div style="margin: 24px 0;font-size:16px;">
+												Thành viên <a href="">{{$req->staff->name}}</a> muốn nhận dự án của bạn
+												<div style="display:inline-block;float:right;">
+													<button class="genric-btn success clickAccept"  v-on:click="clickAccept('{{$req->id}}')">
+														Xác nhận
+													</button>
+													<button class="genric-btn danger clickRefuse"  v-on:click="clickRefuse('{{$req->id}}')">
+														Từ chối
+													</button>
+												</div>
+											</div>
+										</li>	
+									@endforeach											
+								</ul>
+							</div>
+						@endif
+						</div>
+					</div>
+				</div>
 				<div class="container">
 					<div class="row justify-content-center d-flex">
 						<div class="col-lg-8 post-list">
@@ -173,4 +202,107 @@
 						</div>
 					</div>
 				</div>	
+			</section>
+			<section class="comment-sec-area pt-80 pb-80">
+				<div class="container">
+					<div class="row flex-column">
+						<h5 class="text-uppercase pb-80">05 Comments</h5>
+						<br>
+						<div class="comment-list">
+							<div class="single-comment justify-content-between d-flex">
+								<div class="user justify-content-between d-flex">
+									<div class="thumb">
+										<img src="img/blog/c1.jpg" alt="">
+									</div>
+									<div class="desc">
+										<h5><a href="#">Emilly Blunt</a></h5>
+										<p class="date">December 4, 2017 at 3:12 pm </p>
+										<p class="comment">
+											Never say goodbye till the end comes!
+										</p>
+									</div>
+								</div>
+								<div class="reply-btn">
+										<a href="" class="btn-reply text-uppercase">reply</a> 
+								</div>
+							</div>
+						</div>
+						<div class="comment-list left-padding">
+							<div class="single-comment justify-content-between d-flex">
+								<div class="user justify-content-between d-flex">
+									<div class="thumb">
+										<img src="img/blog/c2.jpg" alt="">
+									</div>
+									<div class="desc">
+										<h5><a href="#">Emilly Blunt</a></h5>
+										<p class="date">December 4, 2017 at 3:12 pm </p>
+										<p class="comment">
+											Never say goodbye till the end comes!
+										</p>
+									</div>
+								</div>
+								<div class="reply-btn">
+										<a href="" class="btn-reply text-uppercase">reply</a> 
+								</div>
+							</div>
+						</div>
+						<div class="comment-list left-padding">
+							<div class="single-comment justify-content-between d-flex">
+								<div class="user justify-content-between d-flex">
+									<div class="thumb">
+										<img src="img/blog/c3.jpg" alt="">
+									</div>
+									<div class="desc">
+										<h5><a href="#">Emilly Blunt</a></h5>
+										<p class="date">December 4, 2017 at 3:12 pm </p>
+										<p class="comment">
+											Never say goodbye till the end comes!
+										</p>
+									</div>
+								</div>
+								<div class="reply-btn">
+										<a href="" class="btn-reply text-uppercase">reply</a> 
+								</div>
+							</div>
+						</div>
+						<div class="comment-list">
+							<div class="single-comment justify-content-between d-flex">
+								<div class="user justify-content-between d-flex">
+									<div class="thumb">
+										<img src="img/blog/c4.jpg" alt="">
+									</div>
+									<div class="desc">
+										<h5><a href="#">Emilly Blunt</a></h5>
+										<p class="date">December 4, 2017 at 3:12 pm </p>
+										<p class="comment">
+											Never say goodbye till the end comes!
+										</p>
+									</div>
+								</div>
+								<div class="reply-btn">
+										<a href="" class="btn-reply text-uppercase">reply</a> 
+								</div>
+							</div>
+						</div>
+						<div class="comment-list">
+							<div class="single-comment justify-content-between d-flex">
+								<div class="user justify-content-between d-flex">
+									<div class="thumb">
+										<img src="img/blog/c5.jpg" alt="">
+									</div>
+									<div class="desc">
+										<h5><a href="#">Emilly Blunt</a></h5>
+										<p class="date">December 4, 2017 at 3:12 pm </p>
+										<p class="comment">
+											Never say goodbye till the end comes!
+										</p>
+									</div>
+								</div>
+								<div class="reply-btn">
+										<a href="" class="btn-reply text-uppercase">reply</a> 
+								</div>
+							</div>
+						</div>                                                                                                                                                                
+					</div>
+				</div>    
 			</section>

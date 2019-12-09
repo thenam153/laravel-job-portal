@@ -2,6 +2,11 @@
 				<div class="container">
 					<div class="row justify-content-center d-flex">
 						<div class="col-lg-12 post-list">
+							@if(count($myprojects) ==0) 
+							<div style="font-size:25px;">
+								Dự án của bạn hiện đang trống, click vào <a href="/postproject">đây</a> để đăng bài mới
+							</div>
+							@endif
 							@foreach($myprojects as $project)
 							<div class="single-post d-flex flex-row">
 								<div class="thumb" style="margin-right: 4em;">

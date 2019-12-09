@@ -67,8 +67,7 @@
 			@yield('script')
 			<script>
 			(function($) {
-					'use strict';
-				
+				'use strict';
 				var app = new Vue({
 					el: '#app',
 					data: {
@@ -119,21 +118,46 @@
 							.catch((err) => {
 								console.log(err);
 							})
+						},
+						clickAccept: function(id, el) {
+							console.log(id);
+							console.log($("#list-uv").children());
+							axios.post(`/response-request`, {
+								id: id,
+								status: "accepted"
+							})
+							.then((res) => {
+								console.log(res.data);
+							})
+							.catch((err) => {
+								console.log(err);
+							})
+							$('#request-' + id).remove();
+							if($("#list-uv").children().length == 0) {
+								$("#section-1-uv").remove();
+							}
+						},
+						clickRefuse: function(id) {
+							console.log(id);
+							console.log($("#list-uv").children());
+							axios.post(`/response-request`, {
+								id: id,
+								status: "refused"
+							})
+							.then((res) => {
+								console.log(res.data);
+							})
+							.catch((err) => {
+								console.log(err);
+							})
+							$('#request-' + id).remove();
+							if($("#list-uv").children().length == 0) {
+								$("#section-1-uv").remove();
+							}
 						}
 					}
 				});
 			})(jQuery);
-			</script>
-			<script>
-				(function($) {
-					'use strict';
-					$('#change1').on('click', function() {
-						console.log('1');
-					})
-					$('#change2').on('click', function() {
-						console.log('1');
-					})
-				})(jQuery);
 			</script>
 		</body>
 	</html>

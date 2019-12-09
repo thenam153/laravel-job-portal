@@ -55,7 +55,10 @@ Route::middleware('user')->group(function() {
 
     Route::any('/myproject/delete/{id}', 'ProductController@deleteMyProject');
     Route::get('/notify', 'ProductController@getNotify');
-    
+    Route::get('/received', 'ProductController@getReceived');
+    Route::post('/received', 'ProductController@postReceived');
+
+    Route::post('/response-request', 'ProductController@postResponseRequest');
 });
 
 

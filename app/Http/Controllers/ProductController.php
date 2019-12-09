@@ -20,6 +20,7 @@ use App\User;
 use App\File;
 
 use App\Events\ApplyProject;
+use App\Events\NewRequest;
 
 
 class ProductController extends Controller
@@ -279,7 +280,12 @@ class ProductController extends Controller
         $r->idUserStaff = $request->idUser;
         $r->status = 'pending';
         $r->save();
+        $amount = DB::table('requests')
+        ->groupBy('idUserOwner')
+        ->having('idUserOwner', $project->idUser)
+        ->count();
         broadcast(new ApplyProject($project->idUser, $request->idProject, $request->idUser));
+        broadcast(new NewRequest($project->idUser, $amount));
         return response()->json(['success' => 'done' ]);
     }
     public function anyRequest(Request $request) {
@@ -288,6 +294,18 @@ class ProductController extends Controller
         ->groupBy('idUserOwner')
         ->having('idUserOwner', Auth::id())
         ->count();
-        return $amount;
+        $request = DB::table('requests')
+        ->where('idUserOwner', Auth::id())
+        ->get();
+        
+        foreach($request as $r) {
+            $r->owner = User::find($r->idUserOwner);
+            $r->staff = User::find($r->idUserStaff);
+            $r->project = Project::find($r->idProject);
+        }
+        return response()->json(['request' =>  $request, 'amount' => $amount]);;
+    }
+    public function getNotify() {
+        return view('notify');
     }
 }

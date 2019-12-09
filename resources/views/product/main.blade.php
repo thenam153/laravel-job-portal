@@ -66,13 +66,14 @@
             @yield('js')
 			@yield('script')
 			<script>
+			(function($) {
+					'use strict';
+				
 				var app = new Vue({
 					el: '#app',
 					data: {
 						project: {},
 						user: {!! Auth::check() ? Auth::user()->toJson() : 'null' !!},
-						requests: 0,
-						
 					},
 					mounted() {
 						this.getRequest();
@@ -104,21 +105,24 @@
 							Echo.channel('apply.project.{!! Auth::check() ? Auth::id() : 'null' !!}')
 							.listen('ApplyProject', function(res) {
 								console.log(res);
-							})
+							});
+							Echo.channel('request.{!! Auth::check() ? Auth::id() : 'null' !!}')
+							.listen('NewRequest', function(res) {
+								$('#amountRequest').text(res.amount);
+							});
 						},
 						getRequest: function() {
 							axios.post(`/get-request`)
 							.then((res) => {
-								console.log(res.data);
-								this.requests = res.data;
+								$('#amountRequest').text(res.data.amount);
 							})
 							.catch((err) => {
 								console.log(err);
 							})
-
 						}
 					}
-				})
+				});
+			})(jQuery);
 			</script>
 			<script>
 				(function($) {

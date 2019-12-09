@@ -10,10 +10,8 @@
 				          <li><a href="category">Danh mục</a></li>
 				          <li><a href="postproject">Đăng bài</a></li>
 				          <li><a href="myproject">Dự án của tôi</a></li>
-						  <li class="menu-has-children"><a href="javascript:void(0)"><span class="fa fa-bell-o" v-text="requests"></span></a>
-						  	<ul>
-								<li><a id="change1" href="javascript:void(0)"> Người tuyển dụng </a></li>
-				            </ul>
+						  <li class="menu-has-children"><a href="/notify"><span class="fa fa-bell-o" id="amountRequest"></span></a>
+						  	
 						</li>
 						  @if(Auth::check())
 						  <li><a class="ticker-btn" href="/user">{{Auth::user()->name}}</a></li>		          				          

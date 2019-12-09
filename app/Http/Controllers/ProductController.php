@@ -18,9 +18,11 @@ use App\RequestTable;
 use App\Skill;
 use App\User;
 use App\File;
+use App\Comment;
 
 use App\Events\ApplyProject;
 use App\Events\NewRequest;
+use App\Events\NewComment;
 
 
 class ProductController extends Controller
@@ -366,5 +368,29 @@ class ProductController extends Controller
         $req->status = $request->status;
         $req->save();
         return response()->json(['success' => $request->status]);
+    }
+    public function postComment(Request $request)
+    {
+        # code...
+        $comment = new Comment();
+        $comment->idProject = $request->idProject;
+        $comment->content = $request->content;
+        $comment->idUser = Auth::id();
+        $comment->save();
+        $user = User::find(Auth::id());
+        broadcast(new NewComment($comment, $user)); 
+        return $comment;
+    }
+    public function postGetComment(Request $request)
+    {
+        $comment = DB::table('comments')
+        ->where('idProject', $request->idProject)
+        ->get();
+        foreach($comment as $cm) {
+            $cm->user = User::find($cm->idUser);
+            $cm->url = '';
+            $cm->name = $cm->user->name;
+        }
+        return $comment;
     }
 }

@@ -47,6 +47,9 @@ Route::post('/category', 'ProductController@postCategory');
 Route::get('/project/{id}', 'ProductController@getProject');
 Route::any('/get-request', 'ProductController@anyRequest');
 
+Route::post('/get-comment', 'ProductController@postGetComment');
+
+
 Route::middleware('user')->group(function() {
     Route::get('/postproject', 'ProductController@getSubmitProject');
     Route::get('/myproject', 'ProductController@getMyProject');
@@ -59,6 +62,8 @@ Route::middleware('user')->group(function() {
     Route::post('/received', 'ProductController@postReceived');
 
     Route::post('/response-request', 'ProductController@postResponseRequest');
+
+    Route::post('/comment', 'ProductController@postComment');
 });
 
 

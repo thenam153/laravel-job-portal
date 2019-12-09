@@ -73,10 +73,16 @@
 					data: {
 						project: {},
 						user: {!! Auth::check() ? Auth::user()->toJson() : 'null' !!},
+						comments: null,
+						message: '',
+						commentLength: 0
 					},
 					mounted() {
 						this.getRequest();
-						this.listen();
+						this.listen(this);
+						@if(isset($project))
+						this.getComment();
+						@endif
 					},
 					methods: {
 						clickApply: function(id) {
@@ -100,7 +106,7 @@
 						clickHeart: function(id) {
 							console.log(id);
 						},
-						listen: function() {
+						listen: function(self) {
 							Echo.channel('apply.project.{!! Auth::check() ? Auth::id() : 'null' !!}')
 							.listen('ApplyProject', function(res) {
 								console.log(res);
@@ -109,6 +115,14 @@
 							.listen('NewRequest', function(res) {
 								$('#amountRequest').text(res.amount);
 							});
+							@if(isset($project))
+							Echo.channel('comment.{!! $project->id !!}')
+							.listen('NewComment', function(res) {
+								console.log(res);
+								self.comments.unshift(res);
+								self.commentLength ++;
+							})
+							@endif
 						},
 						getRequest: function() {
 							axios.post(`/get-request`)
@@ -154,6 +168,42 @@
 							if($("#list-uv").children().length == 0) {
 								$("#section-1-uv").remove();
 							}
+						},
+						@if(isset($project))
+						getComment: function() {
+							axios.post(`/get-comment`, {
+								idProject: {!! $project->id !!}
+							})
+							.then((res) => {
+								console.log(res);
+								let comments = [];
+								for(let i in res.data) {
+									comments.push({
+										name: res.data[i].name,
+										content: res.data[i].content,
+										updated_at: res.data[i].updated_at,
+										url: res.data[i].url
+									});
+								}
+								this.commentLength = comments.length;
+								this.comments = comments;
+								console.log(this.comments);
+							})
+							.catch((err) => {
+								console.log(err);
+							})
+						},
+						@endif
+						postMessage: function(id) {
+							console.log(this.message)
+							axios.post(`/comment`, {
+								idProject: id,
+								content: this.message
+							})
+							.then((res) => {
+								console.log(res);
+								this.message = null;
+							})
 						}
 					}
 				});

@@ -203,31 +203,42 @@
 					</div>
 				</div>	
 			</section>
-			<section class="comment-sec-area pt-80 pb-80">
+			<section class="comment-sec-area pt-60 pb-60">
 				<div class="container">
 					<div class="row flex-column">
-						<h5 class="text-uppercase pb-80">05 Comments</h5>
-						<br>
-						<div class="comment-list">
+						<h5 class="text-uppercase pb-20"><span v-text="commentLength"></span> Binh luận</h5>
+						<div class="container" style="margin: 20px 0;padding:0;">
+							<textarea class="single-textarea" v-model="message" placeholder="Bình luận" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Message'" required=""></textarea>
+							@if(Auth::check())
+							<div class="reply-btn" style="width:132px;margin: 10px 0;cursor: pointer;" v-on:click="postMessage('{{$project->id}}')">
+								<span class="btn-reply text-uppercase">Bình luận</span> 
+							</div>
+							@else
+							<div class="reply-btn" style="width:132px;margin: 10px 0;cursor: pointer;">
+								<a href="/login" class="btn-reply text-uppercase">Bình luận</a> 
+							</div>
+							@endif
+						</div>
+						
+						<div class="comment-list" v-for="cm in comments">
 							<div class="single-comment justify-content-between d-flex">
 								<div class="user justify-content-between d-flex">
 									<div class="thumb">
-										<img src="img/blog/c1.jpg" alt="">
+										<img src="/" alt="">
 									</div>
 									<div class="desc">
-										<h5><a href="#">Emilly Blunt</a></h5>
-										<p class="date">December 4, 2017 at 3:12 pm </p>
-										<p class="comment">
-											Never say goodbye till the end comes!
+										<h5><a href="/" v-text="cm.name">
+											<!-- name -->
+										</a></h5>
+										<p class="date" v-text="cm.updated_at"></p>
+										<p class="comment" v-text="cm.content">
+											<!-- Never say goodbye till the end comes! -->
 										</p>
 									</div>
 								</div>
-								<div class="reply-btn">
-										<a href="" class="btn-reply text-uppercase">reply</a> 
-								</div>
 							</div>
 						</div>
-						<div class="comment-list left-padding">
+						<!-- <div class="comment-list left-padding">
 							<div class="single-comment justify-content-between d-flex">
 								<div class="user justify-content-between d-flex">
 									<div class="thumb">
@@ -245,64 +256,7 @@
 										<a href="" class="btn-reply text-uppercase">reply</a> 
 								</div>
 							</div>
-						</div>
-						<div class="comment-list left-padding">
-							<div class="single-comment justify-content-between d-flex">
-								<div class="user justify-content-between d-flex">
-									<div class="thumb">
-										<img src="img/blog/c3.jpg" alt="">
-									</div>
-									<div class="desc">
-										<h5><a href="#">Emilly Blunt</a></h5>
-										<p class="date">December 4, 2017 at 3:12 pm </p>
-										<p class="comment">
-											Never say goodbye till the end comes!
-										</p>
-									</div>
-								</div>
-								<div class="reply-btn">
-										<a href="" class="btn-reply text-uppercase">reply</a> 
-								</div>
-							</div>
-						</div>
-						<div class="comment-list">
-							<div class="single-comment justify-content-between d-flex">
-								<div class="user justify-content-between d-flex">
-									<div class="thumb">
-										<img src="img/blog/c4.jpg" alt="">
-									</div>
-									<div class="desc">
-										<h5><a href="#">Emilly Blunt</a></h5>
-										<p class="date">December 4, 2017 at 3:12 pm </p>
-										<p class="comment">
-											Never say goodbye till the end comes!
-										</p>
-									</div>
-								</div>
-								<div class="reply-btn">
-										<a href="" class="btn-reply text-uppercase">reply</a> 
-								</div>
-							</div>
-						</div>
-						<div class="comment-list">
-							<div class="single-comment justify-content-between d-flex">
-								<div class="user justify-content-between d-flex">
-									<div class="thumb">
-										<img src="img/blog/c5.jpg" alt="">
-									</div>
-									<div class="desc">
-										<h5><a href="#">Emilly Blunt</a></h5>
-										<p class="date">December 4, 2017 at 3:12 pm </p>
-										<p class="comment">
-											Never say goodbye till the end comes!
-										</p>
-									</div>
-								</div>
-								<div class="reply-btn">
-										<a href="" class="btn-reply text-uppercase">reply</a> 
-								</div>
-							</div>
-						</div>                                                                                                                                                                
+						</div> -->	                                                                                                                                                                
 					</div>
 				</div>    
 			</section>

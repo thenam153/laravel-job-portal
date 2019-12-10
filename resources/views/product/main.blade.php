@@ -30,6 +30,7 @@
 			<link rel="stylesheet" href="css/animate.min.css">
 			<link rel="stylesheet" href="css/owl.carousel.css">
 			<link rel="stylesheet" href="css/main-product.css">
+			<link rel="stylesheet" href="css/jquery.toast.min.css">
 		</head>
 		<body>
 			<div id="app">
@@ -66,7 +67,7 @@
             @yield('js')
 			@yield('script')
 			<script>
-			(function($) {
+			$(document).ready(function() {
 				'use strict';
 				var app = new Vue({
 					el: '#app',
@@ -94,9 +95,35 @@
 							.then((res) => {
 								if(res.data.error) {
 									console.log("Error");
+									$.toast({
+											heading: 'Thất bại',
+											text: 'Bạn đã đăng ký ứng cử thất bại',
+											showHideTransition: 'slide',
+											icon: 'error',
+											position: 'top-right',
+
+										})
 								}
 								if(res.data.success) {
 									console.log('success');
+									$.toast({
+											heading: 'Thành công',
+											text: 'Bạn đã đăng ký ứng cử thành công',
+											showHideTransition: 'slide',
+											icon: 'success',
+											position: 'top-right',
+
+										})
+								}
+								if(res.data.warning) {
+									$.toast({
+											heading: 'Cảnh báo',
+											text: 'Bạn đã đăng ký ứng cử thất bại',
+											showHideTransition: 'slide',
+											icon: 'warning',
+											position: 'top-right',
+
+										})
 								}
 							})
 							.catch((err) => {
@@ -114,6 +141,14 @@
 							Echo.channel('request.{!! Auth::check() ? Auth::id() : 'null' !!}')
 							.listen('NewRequest', function(res) {
 								$('#amountRequest').text(res.amount);
+								$.toast({
+									heading: 'Thông báo',
+									text: 'Có thông báo mới',
+									showHideTransition: 'slide',
+									icon: 'info',
+									position: 'top-right',
+
+								})
 							});
 							@if(isset($project))
 							Echo.channel('comment.{!! $project->id !!}')
@@ -142,6 +177,14 @@
 							})
 							.then((res) => {
 								console.log(res.data);
+								$.toast({
+										heading: 'Thành công',
+										text: 'Bạn đã chấp nhận ',
+										showHideTransition: 'slide',
+										icon: 'success',
+										position: 'top-right',
+
+									})
 							})
 							.catch((err) => {
 								console.log(err);
@@ -160,6 +203,14 @@
 							})
 							.then((res) => {
 								console.log(res.data);
+								$.toast({
+										heading: 'Thành công',
+										text: 'Bạn đã từ chối thành công',
+										showHideTransition: 'slide',
+										icon: 'success',
+										position: 'top-right',
+
+									})
 							})
 							.catch((err) => {
 								console.log(err);
@@ -168,6 +219,7 @@
 							if($("#list-uv").children().length == 0) {
 								$("#section-1-uv").remove();
 							}
+							
 						},
 						@if(isset($project))
 						getComment: function() {
@@ -236,7 +288,7 @@
 						}
 					}
 				});
-			})(jQuery);
+			});
 			</script>
 		</body>
 	</html>

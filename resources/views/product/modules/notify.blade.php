@@ -9,7 +9,7 @@
                             @endif
                             @foreach($requests as $req)
                                 <div style="font-size: 25px;margin: 32px 0;">
-                                    Dự án <a href="">{{$req->project->name}}</a> có thành viên <a href="">{{$req->staff->name}}</a> (<a href="">{{$req->staff->email}}</a>) muốn nhận!
+                                    Dự án <a href="/project/{{$req->project->id}}">{{$req->project->name}}</a> có thành viên <a href="/user/{{$req->staff->id}}">{{$req->staff->name}}</a> (<a href="/user/{{$req->staff->id}}">{{$req->staff->email}}</a>) muốn nhận!
                                 </div>
                             @endforeach
 						</div>

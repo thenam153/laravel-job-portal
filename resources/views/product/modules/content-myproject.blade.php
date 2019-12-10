@@ -30,7 +30,7 @@
 											<!-- <h6>Premium Labels Limited</h6>					 -->
 										</div>
 										<ul class="btns">
-											<li style="position: absolute;right: 10px;padding: 0px;">
+											<li style="padding: 0px;">
 												<a style="padding: 10px 15px;display: block;background: #fff;border: 1px solid #eee;color: black;" onmouseover="this.style.background='#49e4fa'" onmouseout="this.style.background='#fff'" href="/myproject/delete/{{$project->id}}">
 													<span class="fa fa-times-circle"></span>
 												</a>

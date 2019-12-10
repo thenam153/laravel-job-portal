@@ -32,10 +32,8 @@
 										</div>
 										<ul class="btns" style="position:absolute;right:26px;">
 											@if(Auth::check())
-											<li><a href="javascript:void(0);"><span class="lnr lnr-heart"></span></a></li>
 											<li><a href="javascript:void(0);" v-on:click="clickApply({{$project->id}})">Apply</a></li>
 											@else
-											<li><a href="/login"><span class="lnr lnr-heart"></span></a></li>
 											<li><a href="/login">Apply</a></li>
 											@endif
 										</ul>

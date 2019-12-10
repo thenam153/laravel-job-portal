@@ -1,6 +1,21 @@
 <section class="post-area section-gap">
+				@if($run != null) 
 				<div class="container" style="margin-bottom:24px; padding:12px;">
-				<!-- border:1px solid;border-radius: 8px; -->
+					<div class="row justify-content-center d-flex">
+						<div class="col-lg-12 post-list">
+							<div class="single-post job-experience" >
+								<h4 style="display:inline-block;" class="single-title">Bạn <a href="/user/{{$run->staff->id}}">{{$run->staff->name}}</a> đang thực hiện dự án</h4>
+								<div style="display:inline-block;float:right;">
+									<button class="genric-btn danger clickRefuse"  v-on:click="clickCancel('{{$run->id}}')">
+										Hủy
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				@endif
+				<div class="container" style="margin-bottom:24px; padding:12px;">
 					<div class="row justify-content-center d-flex">
 						<div class="col-lg-12 post-list">
 						@if(count($requests) != 0)
@@ -53,8 +68,11 @@
                                             <a href="/project/{{$project->id}}"><h4>{{$project->name}}</h4></a>
 										</div>
 										<ul class="btns" style="position:absolute;right:26px;">
-											<li><a href="#"><span class="lnr lnr-heart"></span></a></li>
-											<li><a href="#">Apply</a></li>
+											@if(Auth::check())
+											<li><a href="javascript:void(0);" v-on:click="clickApply({{$project->id}})">Apply</a></li>
+											@else
+											<li><a href="/login">Apply</a></li>
+											@endif
 										</ul>
 									</div>
 									<p>

@@ -5,7 +5,7 @@
 					<div class="row fullscreen d-flex align-items-center justify-content-center">
 						<div class="banner-content col-lg-12">
 							<h1 class="text-white">
-								<span>1500+</span> Công việc được đăng				
+								<span>{{$count}}0+</span> Công việc được đăng				
 							</h1>	
 							<form action="/search" class="serach-form-area">
 								<div class="row justify-content-center form-wrap">
@@ -14,7 +14,7 @@
 									</div>
 									<div class="col-lg-3 form-cols">
 										<div class="default-select" id="default-selects2">
-											<select name="category">
+											<select name="category" class="nice-select">
 												<option value="0">Tất cả danh mục</option>
 												@foreach($categorys as $category)
 													<option value="{{$category->id}}">{{$category->name}}</option>

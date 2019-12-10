@@ -64,6 +64,10 @@ Route::middleware('user')->group(function() {
     Route::post('/response-request', 'ProductController@postResponseRequest');
 
     Route::post('/comment', 'ProductController@postComment');
+
+    Route::get('/user/{id?}', 'ProductController@getUser');
+
+    Route::post('/done', 'ProductController@postDone');
 });
 
 

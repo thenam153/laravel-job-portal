@@ -14,7 +14,7 @@
 									</div>
 									<div class="col-lg-3 form-cols">
 										<div class="default-select" id="default-selects2">
-											<select name="category">
+											<select name="category" class="nice-select">
 												<option value="0">Tất cả danh mục</option>
 												@foreach($categorys as $category)
 													@if($category->id == $idCategory)

@@ -45,7 +45,7 @@ class NewComment implements ShouldBroadcastNow
         return [
             'name' => $this->user->name,
             'content' => $this->comment->content,
-            'date' => $this->comment->created_at,
+            'updated_at' => $this->comment->updated_at->format('Y-m-d H:i:s'),
             'url' => ''
         ];
     }

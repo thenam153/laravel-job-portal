@@ -8,9 +8,9 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\DB;
 
 use App\Category;
+use App\Project;
 use App\Fk_file_project;
 use App\Fk_skill_user;
-use App\Project;
 use App\RequestTable;
 use App\Skill;
 use App\User;
@@ -57,5 +57,9 @@ class AppServiceProvider extends ServiceProvider
             $project->nameCategory = Category::find($project->idCategory)->name;
         }
         View::share('populars', $populars);
+
+        $count = count(Project::all());
+        View::share('count', $count);
+
     }
 }

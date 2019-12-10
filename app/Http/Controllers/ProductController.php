@@ -33,6 +33,7 @@ class ProductController extends Controller
         # code...
         $categorys = Category::getCategory();
         $projects = DB::table('projects')
+            ->where('status', '<>', 'done')
             ->orderBy('created_at','DESC')
             ->paginate(6);
         foreach($projects as $project) {
@@ -60,6 +61,7 @@ class ProductController extends Controller
             $idCategory = $request->category;
             if($request->category == 0) {
                 $projects = DB::table('projects')
+                ->where('status', '<>', 'done')
                 ->where('projects.name', 'like', '%'.$request->search.'%')
                 ->orWhere('projects.content', 'like', '%'.$request->search.'%')
                 ->paginate(6);
@@ -83,6 +85,7 @@ class ProductController extends Controller
                 $category = Category::find($request->category);
                 if($category == null) return redirect('/index');
                 $projects = DB::table('projects')
+                ->where('status', '<>', 'done')
                 ->where('idCategory', $category->id)
                 ->where('projects.name', 'like', '%'.$request->search.'%')
                 ->orWhere('projects.content', 'like', '%'.$request->search.'%')
@@ -114,10 +117,12 @@ class ProductController extends Controller
 
         if($id === null) {
             $projects = DB::table('projects')
+            ->where('status', '<>', 'done')
             ->orderBy('created_at','DESC')
             ->paginate(6);
         }else {
             $projects = DB::table('projects')
+            ->where('status', '<>', 'done')
             ->where('idCategory', $id)
             ->orderBy('created_at','DESC')
             ->paginate(6);
@@ -259,17 +264,25 @@ class ProductController extends Controller
         ->where('idProject', $project->id)
         ->where('status', 'pending')
         ->get();
+
         foreach($requests as $req) {
             $req->owner = User::find($req->idUserOwner);
             $req->staff = User::find($req->idUserStaff);
             $req->project = Project::find($req->idProject);
         }
-        // $project->files = array();
-        // foreach($files as $file) {
-        //     $project->files[] = $file->content;
-        // }
         $project->nameCategory = Category::find($project->idCategory)->name;
-        return view('product.project', compact('project', 'categorys', 'requests'));
+        $run = DB::table('requests')
+        ->where('idProject', $project->id)
+        ->where('idUserOwner', Auth::id())
+        ->where('status', 'accepted')
+        ->first();
+        if($run != null) {
+            $run->owner = User::find($run->idUserOwner);
+            $run->staff = User::find($run->idUserStaff);
+            $run->project = Project::find($run->idProject);
+        }
+        
+        return view('product.project', compact('project', 'categorys', 'requests', 'run'));
     }
 
     public function postApply(Request $request)
@@ -319,6 +332,7 @@ class ProductController extends Controller
     public function getNotify() {
         $requests = DB::table('requests')
         ->where('idUserOwner', Auth::id())
+        ->orderBy('created_at','DESC')
         ->get();
         foreach($requests as $req) {
             $req->owner = User::find($req->idUserOwner);
@@ -331,6 +345,7 @@ class ProductController extends Controller
     {
         $requests = DB::table('requests')
         ->where('idUserStaff', Auth::id())
+        ->orderBy('created_at','DESC')
         ->get();
         $projects = [];
         foreach($requests as $req) {
@@ -351,7 +366,7 @@ class ProductController extends Controller
                 
                 // $project->files[] = $file->content;
             }
-            $project->status = $req->status;
+            $project->statusOfRequest = $req->status;
             $projects[] = $project;
         }
         return view('product.received', compact('projects'));
@@ -368,7 +383,7 @@ class ProductController extends Controller
         $req->status = $request->status;
         $req->save();
         return response()->json(['success' => $request->status]);
-    }
+        }
     public function postComment(Request $request)
     {
         # code...
@@ -392,5 +407,29 @@ class ProductController extends Controller
             $cm->name = $cm->user->name;
         }
         return $comment;
+    }
+    public function getUser($id = null)
+    {
+        $user = null;
+        if($id) {
+            $user = User::find($id);
+        }else {
+            $user = Auth::user();
+        }
+        if($user == null) return redirect('/login');
+        return view('product.user', compact(['user']));
+    }
+    public function postDone(Request $request)
+    {
+        $req = DB::table('requests')
+        ->where('idProject', $request->idProject)
+        ->where('idUserStaff', $request->idUser)
+        ->first();
+        if($req != null) {
+            $project = Project::find($request->idProject);
+            $project->status = 'done';
+            $project->save();
+        }
+        return response()->json(['status' => 'success']);
     }
 }

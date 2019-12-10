@@ -204,6 +204,35 @@
 								console.log(res);
 								this.message = null;
 							})
+						},
+						clickCancel: function(id) {
+							console.log($("#list-uv").children());
+							axios.post(`/response-request`, {
+								id: id,
+								status: "refused"
+							})
+							.then((res) => {
+								console.log(res.data);
+								window.location.reload();
+							})
+							.catch((err) => {
+								console.log(err);
+							})
+							$('#runaway').remove();
+						},
+						clickDone: function(id) {
+							console.log(id);
+							axios.post(`/done`, {
+								idProject: id,
+								idUser: {{Auth::check() ? Auth::id() : 'null'}}
+							})
+							.then((res) => {
+								console.log(res.data);
+								window.location.reload();
+							})
+							.catch((err) => {
+								console.log(err);
+							})
 						}
 					}
 				});

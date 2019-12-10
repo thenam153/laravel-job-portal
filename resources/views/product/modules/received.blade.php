@@ -29,11 +29,18 @@
 											<a href="/project/{{$project->id}}"><h4>{{$project->name}}</h4></a>
 											<!-- <h6>Premium Labels Limited</h6>					 -->
 										</div>
-                                        @if($project->status == "accepted")
+										@if($project->status == 'done')
+										<div style="font-size:16px;" >
+                                            Trạng thái: <span style="color: #39bd39;font-weight: bold;">Hoàn thành</span>
+                                        </div>
+                                        @elseif($project->statusOfRequest == "accepted")
 										<div style="font-size:16px;" >
                                             Trạng thái: <span style="color: #39bd39;font-weight: bold;">Đã nhận</span>
                                         </div>
-                                        @elseif($project->status == "refused")
+										<button class="genric-btn success clickAccept"  v-on:click="clickDone('{{$project->id}}')">
+											Hoàn thành
+										</button>
+                                        @elseif($project->statusOfRequest == "refused")
                                         <div style="font-size:16px;;">
                                             Trạng thái: <span style="color: red;font-weight: bold">Từ chối</span>
                                         </div>

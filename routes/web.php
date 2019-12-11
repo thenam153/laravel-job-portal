@@ -78,4 +78,29 @@ Route::middleware('user')->group(function() {
     Route::post('/edit-user', 'ProductController@postEditUser');
 });
 
+Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
+    Route::get('/', 'AdminController@index');
+    
+    Route::get('/index', 'AdminController@index');
 
+    Route::get('/project', 'AdminController@getProject');
+    
+    Route::post('/project', 'AdminController@postProject');
+        
+    Route::get('/category', 'AdminController@getCategory');
+    
+    Route::post('/category', 'AdminController@postCategory');
+        
+    Route::get('/user', 'AdminController@getUser');
+    
+    Route::post('/user', 'AdminController@postUser');
+        
+    Route::get('/comment', 'AdminController@getComment');
+    
+    Route::post('/comment', 'AdminController@postComment');
+        
+    Route::get('/extension', 'AdminController@getExtension');
+    
+    Route::post('/extension', 'AdminController@postExtension');
+        
+});

@@ -35,19 +35,26 @@ Route::post('/forget', 'AccountController@postForget')->name('forget');
 Route::post('/reset', 'AccountController@postReset')->name('reset');
 
 Route::get('/', 'ProductController@index');
+
 Route::get('/index', 'ProductController@index');
+
 Route::get('/search', 'ProductController@getSearch');
+
 Route::get('/category/{id?}', 'ProductController@getCategory');
 // Route::get('/postproject', 'ProductController@getSubmitProject');
 // Route::get('/myproject', 'ProductController@getMyProject');
 
 Route::post('/category', 'ProductController@postCategory');
+
 // Route::post('/postproject', 'ProductController@postSubmitProject')->name('postproject');
 // Route::post('/myproject', 'ProductController@postMyProject');
 Route::get('/project/{id}', 'ProductController@getProject');
+
 Route::any('/get-request', 'ProductController@anyRequest');
 
 Route::post('/get-comment', 'ProductController@postGetComment');
+
+Route::get('/subscribe', 'ProductController@subscribe');
 
 
 Route::middleware('user')->group(function() {

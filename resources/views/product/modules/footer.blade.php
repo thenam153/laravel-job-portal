@@ -6,30 +6,27 @@
                 <div class="single-footer-widget">
                     <h6>Sản phẩm</h6>
                     <ul class="footer-nav">
-                        <li><a href="#">Lorem, ipsum.</a></li>
-                        <li><a href="#">Lorem, ipsum.</a></li>
-                        <li><a href="#">Lorem, ipsum dolor.</a></li>
-                        <li><a href="#">Lorem, ipsum dolor.</a></li>
+                        <li><a href="https://www.facebook.com/thenam153">Facebook</a></li>
+                        <li><a href="https://www.instagram.com/namthe153/">IG</a></li>
+                        <li><a href="https://github.com/thenam153">Github</a></li>
+                        <li><a href="https://www.linkedin.com/">LinkIn</a></li>
+                        <li><a href="https://tinder.com/app/recs">Chưa có người yêu này</a></li>
                     </ul>
                 </div>
             </div>
             <div class="col-lg-6  col-md-12">
                 <div class="single-footer-widget newsletter">
                     <h6>Đăng kí với chúng tôi</h6>
-                    <p>You can trust us. we only send promo offers, not a single spam.</p>
+                    <p>Tin mình đi</p>
                     <div id="mc_embed_signup">
-                        <form target="_blank" novalidate="true" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01" method="get" class="form-inline">
-
+                        <form target="_blank" novalidate="true" action="/subscribe" method="get" class="form-inline">
                             <div class="form-group row" style="width: 100%">
                                 <div class="col-lg-8 col-md-12">
-                                    <input name="EMAIL" placeholder="Enter Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Email '" required="" type="email">
-                                    <div style="position: absolute; left: -5000px;">
-                                        <input name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value="" type="text">
-                                    </div>
+                                    <input name="email" placeholder="Enter Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Email '" required type="email">
                                 </div> 
                             
                                 <div class="col-lg-4 col-md-12">
-                                    <button class="nw-btn primary-btn">Subscribe<span class="lnr lnr-arrow-right"></span></button>
+                                    <button class="nw-btn primary-btn" id="sub">Subscribe<span class="lnr lnr-arrow-right"></span></button>
                                 </div> 
                             </div>		
                             <div class="info"></div>
@@ -39,7 +36,7 @@
             </div>
             <div class="col-lg-3  col-md-12">
                 <div class="single-footer-widget mail-chimp">
-                    <h6 class="mb-20">Lorem, ipsum dolor.</h6>
+                    <h6 class="mb-20">Kiến tạo thế giới</h6>
                 </div>
             </div>						
         </div>

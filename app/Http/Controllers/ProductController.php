@@ -20,6 +20,7 @@ use App\User;
 use App\File;
 use App\Comment;
 use App\Notify;
+use App\Email;
 
 use App\Events\ApplyProject;
 use App\Events\NewRequest;
@@ -564,5 +565,12 @@ class ProductController extends Controller
         $user->phone = $request->phone;
         $user->save();
         return response()->json(["status" => "success"]);
+    }
+    public function subscribe(Request $request)
+    {
+        $email = new Email();
+        $email->email = $request->email;
+        $email->save();
+        return redirect('/');
     }
 }

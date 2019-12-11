@@ -20,6 +20,8 @@ use App\User;
 use App\File;
 use App\Comment;
 use App\Notify;
+use App\Email;
+
 
 class AdminController extends Controller
 {

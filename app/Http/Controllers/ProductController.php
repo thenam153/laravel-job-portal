@@ -8,6 +8,8 @@ use Illuminate\Support\MessageBag;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\View;
+
 use DB;
 
 use App\Category;
@@ -30,6 +32,33 @@ use App\Events\NewComment;
 class ProductController extends Controller
 {
     //
+    public function __construct()
+    {
+        $populars = DB::table('projects')
+        ->orderBy('created_at','DESC')
+        ->limit(6)
+        ->get();
+        foreach($populars as $project) {
+            $category = Category::find($project->idCategory);
+            $project->nameCategory = $category->name;
+            $project->contentCategory = $category->content;
+            $project->skills = json_decode($project->skills);
+            if(!is_array($project->skills)) $project->skills = [];
+            $files = DB::table('files')
+            ->where('idProject', $project->id)
+            ->get();
+            $project->files = array();
+            foreach($files as $file) {
+                
+                $project->files[] = $file->content;
+            }
+            $project->nameCategory = Category::find($project->idCategory)->name;
+        }
+        View::share('populars', $populars);
+
+        $count = count(Project::all());
+        View::share('count', $count);
+    }
     public function index()
     {
         # code...

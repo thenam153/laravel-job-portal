@@ -60,6 +60,5 @@ class AppServiceProvider extends ServiceProvider
 
         $count = count(Project::all());
         View::share('count', $count);
-
     }
 }

@@ -19,6 +19,7 @@ use App\Skill;
 use App\User;
 use App\File;
 use App\Comment;
+use App\Notify;
 
 use App\Events\ApplyProject;
 use App\Events\NewRequest;
@@ -304,17 +305,45 @@ class ProductController extends Controller
         $r->idUserStaff = $request->idUser;
         $r->status = 'pending';
         $r->save();
-        $amount = DB::table('requests')
+        
+        $notify = new Notify();
+        $notify->idProject = $request->idProject;
+        $notify->idUserOwner = $project->idUser;
+        $notify->idUserStaff = $request->idUser;
+        $notify->status = 'yet';
+        $notify->content= 1;
+        $notify->save();
+        
+        $notifySelf = new Notify();
+        $notifySelf->idProject = $request->idProject;
+        $notifySelf->idUserOwner = $request->idUser;
+        $notifySelf->idUserStaff = $project->idUser;
+        $notifySelf->status = 'yet';
+        $notifySelf->content= 2;
+        $notifySelf->save();
+
+        $amount = DB::table('notifys')
+        ->where('status', 'yet')
         ->groupBy('idUserOwner')
         ->having('idUserOwner', $project->idUser)
         ->count();
-        broadcast(new ApplyProject($project->idUser, $request->idProject, $request->idUser));
+
+        $amountSelf = DB::table('notifys')
+        ->where('status', 'yet')
+        ->groupBy('idUserOwner')
+        ->having('idUserOwner', $request->idUser)
+        ->count();
+
         broadcast(new NewRequest($project->idUser, $amount));
+        broadcast(new NewRequest($request->idUser, $amountSelf));
+        broadcast(new ApplyProject($project->idUser, $request->idProject, $request->idUser));
+
         return response()->json(['success' => 'done' ]);
     }
     public function anyRequest(Request $request) {
         if(!Auth::check()) return response()->json(['error' => 'Please login'], 404);
-        $amount = DB::table('requests')
+        $amount = DB::table('notifys')
+        ->where('status', 'yet')
         ->groupBy('idUserOwner')
         ->having('idUserOwner', Auth::id())
         ->count();
@@ -330,16 +359,24 @@ class ProductController extends Controller
         return response()->json(['request' =>  $request, 'amount' => $amount]);;
     }
     public function getNotify() {
-        $requests = DB::table('requests')
+        $notifys = DB::table('notifys')
         ->where('idUserOwner', Auth::id())
         ->orderBy('created_at','DESC')
         ->get();
-        foreach($requests as $req) {
+        foreach($notifys as $req) {
             $req->owner = User::find($req->idUserOwner);
             $req->staff = User::find($req->idUserStaff);
             $req->project = Project::find($req->idProject);
+            if($req->status == 'yet') {
+                $noti = Notify::find($req->id);
+                $noti->status = "done";
+                $noti->save();
+                $req->seen = false;
+            }else {
+                $req->seen = true; 
+            }
         }
-        return view('product.notify', compact('requests'));
+        return view('product.notify', compact('notifys'));
     }
     public function getReceived()
     {
@@ -372,7 +409,6 @@ class ProductController extends Controller
         return view('product.received', compact('projects'));
     }
     public function postReceived() {
-
     }
     public function postResponseRequest(Request $request)
     {
@@ -382,6 +418,46 @@ class ProductController extends Controller
         }
         $req->status = $request->status;
         $req->save();
+
+        $notify = new Notify();
+        $notify->idProject = $req->idProject;
+        $notify->idUserOwner = $req->idUserStaff;
+        $notify->idUserStaff = $req->idUserOwner;
+        $notify->status = 'yet';
+        if($req->status == 'accepted') {
+            $notify->content= 3;
+        }else {
+            $notify->content= 4;
+        }
+        $notify->save();
+
+        $notifySelf = new Notify();
+        $notifySelf->idProject = $req->idProject;
+        $notifySelf->idUserOwner = $req->idUserOwner;
+        $notifySelf->idUserStaff = $req->idUserStaff;
+        $notifySelf->status = 'yet';
+        if($req->status == 'accepted') {
+            $notifySelf->content= 5;
+        }else {
+            $notifySelf->content= 6;
+        }
+        $notifySelf->save();
+        
+        $amount = DB::table('notifys')
+        ->where('status', 'yet')
+        ->groupBy('idUserOwner')
+        ->having('idUserOwner', $req->idUserOwner)
+        ->count();
+
+        $amountSelf = DB::table('notifys')
+        ->where('status', 'yet')
+        ->groupBy('idUserOwner')
+        ->having('idUserOwner', $req->idUserStaff)
+        ->count();
+
+        broadcast(new NewRequest($req->idUserOwner, $amount));
+        broadcast(new NewRequest($req->idUserStaff, $amountSelf));
+
         return response()->json(['success' => $request->status]);
         }
     public function postComment(Request $request)
@@ -417,6 +493,21 @@ class ProductController extends Controller
             $user = Auth::user();
         }
         if($user == null) return redirect('/login');
+        $user->quantity = DB::table('projects')->where('idUser', $user->id)->count();
+
+        $projects = DB::table('requests')->where('idUserStaff', $user->id)->where('status', 'accepted')->get();
+
+        $user->quantityAccepted = DB::table('requests')->where('idUserStaff', $user->id)->where('status', 'accepted')->count();
+
+        $done = 0;
+        foreach($projects as $project) {
+            $project = Project::find($project->idProject);
+            if($project->status == 'done') {
+                $done++;
+            }
+        }
+        $user->quantityDone = $done;
+
         return view('product.user', compact(['user']));
     }
     public function postDone(Request $request)
@@ -430,6 +521,47 @@ class ProductController extends Controller
             $project->status = 'done';
             $project->save();
         }
+
+        $notify = new Notify();
+        $notify->idProject = $req->idProject;
+        $notify->idUserOwner = $req->idUserOwner;
+        $notify->idUserStaff = $req->idUserStaff;
+        $notify->status = 'yet';
+        $notify->content= 7;
+        $notify->save(); // 
+
+        $notifySelf = new Notify();
+        $notifySelf->idProject = $req->idProject;
+        $notifySelf->idUserOwner = $req->idUserStaff;
+        $notifySelf->idUserStaff = $req->idUserOwner;
+        $notifySelf->status = 'yet';
+        $notifySelf->content= 8;
+        $notifySelf->save();
+
+        $amount = DB::table('notifys')
+        ->where('status', 'yet')
+        ->groupBy('idUserOwner')
+        ->having('idUserOwner', $req->idUserOwner)
+        ->count();
+
+        $amountSelf = DB::table('notifys')
+        ->where('status', 'yet')
+        ->groupBy('idUserOwner')
+        ->having('idUserOwner', $req->idUserStaff)
+        ->count();
+
+        broadcast(new NewRequest($req->idUserOwner, $amount));
+        broadcast(new NewRequest($req->idUserStaff, $amountSelf));
+
+
         return response()->json(['status' => 'success']);
+    }
+    public function postEditUser(Request $request)
+    {
+        $user = User::find($request->id);
+        $user->name = $request->name;
+        $user->phone = $request->phone;
+        $user->save();
+        return response()->json(["status" => "success"]);
     }
 }

@@ -76,7 +76,15 @@
 						user: {!! Auth::check() ? Auth::user()->toJson() : 'null' !!},
 						comments: null,
 						message: '',
-						commentLength: 0
+						commentLength: 0,
+						notifys: 0,
+						showEdit: false,
+						@if(isset($user))
+						user: {
+							name: '{!! $user->name !!}',
+							phone: '{!! $user->phone !!}'
+						},
+						@endif
 					},
 					mounted() {
 						this.getRequest();
@@ -140,7 +148,8 @@
 							});
 							Echo.channel('request.{!! Auth::check() ? Auth::id() : 'null' !!}')
 							.listen('NewRequest', function(res) {
-								$('#amountRequest').text(res.amount);
+								// $('#amountRequest').text(res.amount);
+								self.notifys = res.amount;
 								$.toast({
 									heading: 'Thông báo',
 									text: 'Có thông báo mới',
@@ -162,7 +171,8 @@
 						getRequest: function() {
 							axios.post(`/get-request`)
 							.then((res) => {
-								$('#amountRequest').text(res.data.amount);
+								// $('#amountRequest').text(res.data.amount);
+								this.notifys = res.data.amount;
 							})
 							.catch((err) => {
 								console.log(err);
@@ -179,7 +189,7 @@
 								console.log(res.data);
 								$.toast({
 										heading: 'Thành công',
-										text: 'Bạn đã chấp nhận ',
+										text: 'Bạn đã chấp nhận',
 										showHideTransition: 'slide',
 										icon: 'success',
 										position: 'top-right',
@@ -284,6 +294,18 @@
 							})
 							.catch((err) => {
 								console.log(err);
+							})
+						},
+						editInfo: function() {
+							this.showEdit = !this.showEdit;
+						},
+						saveInfo: function() {
+							this.showEdit = !this.showEdit;
+							console.log("ok");
+							axios.post(`/edit-user`, {
+								id: {!! Auth::check() ? Auth::id() : 'null' !!},
+								name: this.user.name,
+								phone: this.user.phone
 							})
 						}
 					}

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddDesFileToFiles extends Migration
+class AddStatsTableNotify extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class AddDesFileToFiles extends Migration
      */
     public function up()
     {
-        Schema::table('files', function (Blueprint $table) {
+        Schema::table('notifys', function (Blueprint $table) {
             //
-            $table->text('destination')->after('content');
+            $table->enum('status', ['yet', 'done'])->after('content');
+
         });
     }
 
@@ -26,7 +27,7 @@ class AddDesFileToFiles extends Migration
      */
     public function down()
     {
-        Schema::table('files', function (Blueprint $table) {
+        Schema::table('notifys', function (Blueprint $table) {
             //
         });
     }

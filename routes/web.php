@@ -52,13 +52,19 @@ Route::post('/get-comment', 'ProductController@postGetComment');
 
 Route::middleware('user')->group(function() {
     Route::get('/postproject', 'ProductController@getSubmitProject');
+
     Route::get('/myproject', 'ProductController@getMyProject');
+
     Route::post('/postproject', 'ProductController@postSubmitProject')->name('postproject');
+
     Route::post('/myproject', 'ProductController@postMyProject');
 
     Route::any('/myproject/delete/{id}', 'ProductController@deleteMyProject');
+
     Route::get('/notify', 'ProductController@getNotify');
+
     Route::get('/received', 'ProductController@getReceived');
+
     Route::post('/received', 'ProductController@postReceived');
 
     Route::post('/response-request', 'ProductController@postResponseRequest');
@@ -68,6 +74,8 @@ Route::middleware('user')->group(function() {
     Route::get('/user/{id?}', 'ProductController@getUser');
 
     Route::post('/done', 'ProductController@postDone');
+
+    Route::post('/edit-user', 'ProductController@postEditUser');
 });
 
 

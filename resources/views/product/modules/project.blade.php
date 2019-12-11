@@ -68,6 +68,9 @@
                                             <a href="/project/{{$project->id}}"><h4>{{$project->name}}</h4></a>
 										</div>
 										<ul class="btns" style="position:absolute;right:26px;">
+											@if(Auth::id() == $project->idUser)
+											<li><a href="/myproject/delete/{{$project->id}}" >xóa</a></li>
+											@endif
 											@if(Auth::check())
 											<li><a href="javascript:void(0);" v-on:click="clickApply({{$project->id}})">Apply</a></li>
 											@else

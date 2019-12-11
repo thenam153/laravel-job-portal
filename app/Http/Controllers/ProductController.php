@@ -235,9 +235,10 @@ class ProductController extends Controller
             foreach($files as $file) {
                 Storage::delete($file->destination);
                 File::find($file->id)->delete();
-                // not done
             }
+            $project->delete();
         }
+        return redirect('/myproject');
     }
     public function getProject($id)
     {

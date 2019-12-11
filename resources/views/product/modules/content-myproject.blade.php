@@ -32,7 +32,8 @@
 										<ul class="btns">
 											<li style="padding: 0px;">
 												<a style="padding: 10px 15px;display: block;background: #fff;border: 1px solid #eee;color: black;" onmouseover="this.style.background='#49e4fa'" onmouseout="this.style.background='#fff'" href="/myproject/delete/{{$project->id}}">
-													<span class="fa fa-times-circle"></span>
+													<!-- <span class="fa fa-times-circle"></span> -->
+													Xóa
 												</a>
 											</li>
 										</ul>

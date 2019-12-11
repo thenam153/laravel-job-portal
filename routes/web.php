@@ -80,7 +80,7 @@ Route::middleware('user')->group(function() {
 
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
     Route::get('/', 'AdminController@index');
-    
+
     Route::get('/index', 'AdminController@index');
 
     Route::get('/project', 'AdminController@getProject');
@@ -103,4 +103,25 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
     
     Route::post('/extension', 'AdminController@postExtension');
         
+    Route::any('/get-data-project', 'AdminController@getDataProject');
+
+    Route::any('/delete/project', 'AdminController@deleteProject');
+
+    Route::any('/get-data-category', 'AdminController@getDataCategory');
+
+    Route::post('/edit-data-category', 'AdminController@editDataCategory');
+
+    Route::any('/delete/category', 'AdminController@deleteCategory');
+
+    Route::post('/create/category', 'AdminController@createCategory');
+
+    Route::any('/get-data-user', 'AdminController@getDataUser');
+    
+    Route::any('/edit-data-user', 'AdminController@editDataUser');
+
+    Route::any('/delete/user', 'AdminController@deleteUser');
+
+    Route::any('/get-data-comment', 'AdminController@getDataComment');
+
+    Route::any('/delete/comment', 'AdminController@deleteComment');
 });

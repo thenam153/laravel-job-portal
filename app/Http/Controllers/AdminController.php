@@ -62,7 +62,8 @@ class AdminController extends Controller
     }
     public function getExtension()
     {
-        return view('admin.extension');
+        return "Hệ thống đang phát triển, quay lại sau!";
+        // return view('admin.extension');
     }
 
     public function getDataProject() {

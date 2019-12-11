@@ -1,7 +1,7 @@
 ( function ( $ ) {
     "use strict";
     $.ajax({
-        url: '/admin/chartteam',
+        url: '/admin/new-project',
     })
     .success(function(data){
         console.log(data);
@@ -79,7 +79,7 @@
     })
 
     $.ajax({
-        url: '/admin/haizz',
+        url: '/admin/new-comment',
     })
     .success(function(data) {
         console.log("success");
@@ -118,7 +118,7 @@
 
     
     $.ajax({
-        url: '/admin/product-pie',
+        url: '/admin/new-category',
     })
     .success(function(data) {
         // pie chart
@@ -152,7 +152,7 @@
     
 
     $.ajax({
-        url: 'admin/bar',
+        url: 'admin/new-user',
     })
     .success(function(data) {
         

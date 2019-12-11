@@ -36,8 +36,13 @@ class AdminController extends Controller
       date_default_timezone_set('Asia/Ho_Chi_Minh');
     }
     public function index()
-    {
-        return view('admin.index');
+    {   
+        $project = Project::count();
+        $user = User::count();
+        $comment = Comment::count();
+        $email = Email::count();
+
+        return view('admin.index', compact('project', 'user', 'comment', 'email'));
     }
     public function getProject()
     {

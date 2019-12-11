@@ -1,7 +1,7 @@
 @extends('admin.main')
 
 @section('title')
-aaaaaaa
+Trang chủ
 @endsection
 
 @section('content')

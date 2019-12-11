@@ -10,6 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+use App\Project;
 
 Route::get('/login', 'AccountController@getLogin');
 Route::post('/login', 'AccountController@postLogin')->name('login');
@@ -141,4 +142,66 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
     Route::any('/delete/email', 'AdminController@deleteEmail');
 
     Route::any('/send/email', 'AdminController@sendMail');
+
+    Route::get('/new-project',function(){
+        $info=[];
+            for($i=12;$i>=0;$i--){
+                $date = date("m/d/Y",time()-2629743*$i);	
+                $arrayDate = explode('/',$date);
+                $count = DB::table('projects')
+                ->whereYear('created_at', $arrayDate[2])
+                ->whereMonth('created_at', $arrayDate[0])
+                ->count();
+                // $info[$arrayDate[2].'-'.$arrayDate[0]]=$count;
+                $info['y'][]=$arrayDate[2].'-'.$arrayDate[0];
+                $info['a'][]=$count;
+            }
+            return $info;
+    });
+
+    Route::get('/new-user',function(){
+        $info=[];
+            for($i=6;$i>=0;$i--){
+                $date = date("m/d/Y",time()-2629743*$i);	
+                $arrayDate = explode('/',$date);
+                $count = DB::table('users')
+                ->whereYear('created_at', $arrayDate[2])
+                ->whereMonth('created_at',$arrayDate[0])
+                ->count();
+                // $info[$arrayDate[2].'-'.$arrayDate[0]]=$count;
+                $info['y'][]=$arrayDate[2].'-'.$arrayDate[0];
+                $info['a'][]=$count;
+            }
+            return $info;
+    });
+
+
+    Route::get('/new-comment',function(){
+        $info=[];
+            for($i=6;$i>=0;$i--){
+                $date = date("m/d/Y",time()-2629743*$i);	
+                $arrayDate = explode('/',$date);
+                $count = DB::table('comments')
+                ->whereYear('created_at', $arrayDate[2])
+                ->whereMonth('created_at',$arrayDate[0])
+                ->count();
+                // $info[$arrayDate[2].'-'.$arrayDate[0]]=$count;
+                $info['y'][]=$arrayDate[2].'-'.$arrayDate[0];
+                $info['a'][]=$count;
+            }
+            return $info;
+    });
+
+
+    Route::get('/new-category',function(){
+        $info=[];
+        $brand = DB::table('categorys')
+                ->select('id','name')
+                ->get();
+        foreach ($brand as $value) {
+            $info['y'][] = $value->name;
+            $info['a'][] = Project::where('idCategory', $value->id)->count();
+        }
+        return $info;
+    });
 });

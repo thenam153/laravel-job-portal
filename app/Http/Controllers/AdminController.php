@@ -21,7 +21,11 @@ use App\File;
 use App\Comment;
 use App\Notify;
 use App\Email;
+use Mail;
 
+use App\Mail\ConfirmUser;
+use App\Mail\RegisterUser;
+use App\Mail\SubscribeUser;
 
 class AdminController extends Controller
 {
@@ -183,6 +187,26 @@ class AdminController extends Controller
         $comment = Comment::find($request->id);
         $comment->delete();
 
+        return 1;
+    }
+    public function getEmail()
+    {
+        return view('admin.email');
+    }
+    public function getDataEmail()
+    {
+        return Email::all();
+    }
+    public function deleteEmail(Request $request)
+    {
+        $email = Email::find($request->id);
+        $email->delete();
+        return 1;
+    }
+    public function sendMail(Request $request)
+    {
+        $email = Email::find($request->id);
+        Mail::to($email->email)->send(new SubscribeUser());
         return 1;
     }
 }

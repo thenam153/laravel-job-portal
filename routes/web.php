@@ -109,6 +109,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
     Route::get('/extension', 'AdminController@getExtension');
     
     Route::post('/extension', 'AdminController@postExtension');
+
+    Route::get('/email', 'AdminController@getEmail');
+    
+    Route::post('/email', 'AdminController@postEmail');
         
     Route::any('/get-data-project', 'AdminController@getDataProject');
 
@@ -131,4 +135,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
     Route::any('/get-data-comment', 'AdminController@getDataComment');
 
     Route::any('/delete/comment', 'AdminController@deleteComment');
+
+    Route::any('/get-data-email', 'AdminController@getDataEmail');
+
+    Route::any('/delete/email', 'AdminController@deleteEmail');
+
+    Route::any('/send/email', 'AdminController@sendMail');
 });

@@ -4,14 +4,9 @@
 		Thư xác nhận từ Job
 	</div>
 	<div class="content" style="padding: 30px; background-color: #ecf0f1; text-align: justify; font-size: 16px;">
-		<p>Chào bạn, đây là thư xác nhận đăng kí tài khoản từ Job <a href="{{URL::to('confirmuser')}}/{{$code}}">click vào đây để xác nhận</a></p>
-		<p>Nếu bạn không đăng kí tài khoản, vui lòng không click vào đường dẫn trên và phản hồi lại với chúng tối qua Email.</p>
+		
+		<p>Chào bạn, bạn đã đăng ký theo dõi <a href="{{URL::to('index')}}">Job</a> cảm ơn bạn</p>
+		<p>Nếu không phải bạn, vui lòng không click vào đường dẫn trên và phản hồi lại với chúng tối qua Email.</p>
 		<p>Rất cảm ơn quý khách!</p>
-		<table width="50%">
-			<tr style="width: 40%">
-				<td style="color: red; font-weight: bold;">Tên khách truy cập: </td>
-				<td>{{$name}}</td>
-			</tr>
-		</table>
 	</div>
 </div>

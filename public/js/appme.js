@@ -255,6 +255,58 @@ app.controller('commentController', ['$scope', '$http', 'NgTableParams', '$mdToa
     };
 }]);
 
+app.controller('emailController', ['$scope', '$http', 'NgTableParams', '$mdToast', function productController($scope, $http, NgTableParams, $mdToast){
+	var formData = new FormData();
+	this.$onInit = function() {
+		$http.get('admin/get-data-email')
+		.then((res) => {
+			console.log(res.data);
+			$scope.datas= res.data;
+			$scope.email = new NgTableParams({}, { dataset: $scope.datas});
+		});
+	}
+	$scope.delete = (data) => {
+		var index = $scope.datas.indexOf(data);
+		if(index >= 0 ){
+			$scope.datas.splice(index, 1);
+
+			$scope.email = new NgTableParams({}, { dataset: $scope.datas});
+			
+			$http.post('admin/delete/email',{
+				_token : $scope.csrf,
+				id: data.id
+			}).then((req)=>{
+				$mdToast.show(
+			        $mdToast.simple()
+			        .textContent('Đã xóa')
+			        .position('top right')
+		        	.hideDelay(3000)
+		        )
+				console.log(req);
+			})
+		}
+	}
+	$scope.send = (data) => {
+		$http.post('admin/send/email',{
+			_token : $scope.csrf,
+			id: data.id
+		}).then((req)=>{
+			$mdToast.show(
+				$mdToast.simple()
+				.textContent('Đã gửi mail')
+				.position('top right')
+				.hideDelay(3000)
+			)
+			console.log(req);
+		})
+	}
+	$scope.setTheFiles = function ($files) {
+        angular.forEach($files, function (value, key) {
+            formData.append('imagefile[]', value);
+        });
+    };
+}]);
+
 app.directive('ngFiles', ['$parse', function ($parse) {
     function file_links(scope, element, attrs) {
         var onChange = $parse(attrs.ngFiles);

@@ -102,6 +102,10 @@
                         <a href="{{URL::to('admin/comment')}}"> <i class="menu-icon ti-envelope"></i>Bình luận </a>
                     </li>
 
+                    <li>
+                        <a href="{{URL::to('admin/email')}}"> <i class="menu-icon ti-envelope"></i>Email </a>
+                    </li>
+
                      <h3 class="menu-title">Quản lý website</h3><!-- /.menu-title -->
                      <li>
                         <a href="{{URL::to('admin/extension')}}"> <i class="menu-icon ti-layout"></i>Quản lý tiện ích </a>

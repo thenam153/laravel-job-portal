@@ -2,7 +2,7 @@
 <section class="post-area section-gap">
 				<div class="container">
 					<div class="row justify-content-center d-flex">
-						<div class="col-lg-8 post-list">
+						<div class="col-lg-8 post-list" style="text-align: center;">
 
                             @foreach($projects as $project)
 							<div class="single-post d-flex flex-row">
@@ -41,7 +41,7 @@
 								</div>
 							</div>
                             @endforeach
-                            {{$projects->links()}}
+                            {{$projects->links('pagination.default')}}
 							<!-- <a class="text-uppercase loadmore-btn mx-auto d-block" href="category.html">Load More job Posts</a> -->
 
 						</div>

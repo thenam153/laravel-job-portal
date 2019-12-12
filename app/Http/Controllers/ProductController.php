@@ -230,7 +230,6 @@ class ProductController extends Controller
             $skills = explode(',' , $request->skills);
             $project->skills = json_encode($skills);
             $project->save();
-            dd($request->file('files'));
             if($request->file('files')!== null) {
                 foreach($request->file('files') as $fileStorage) {
                     if($fileStorage->extension() == 'png'|| $fileStorage->extension() == 'jpeg' || $fileStorage->extension() == 'jpg' || $fileStorage->extension() == 'gif' || $fileStorage->extension() == 'doc' || $fileStorage->extension() == 'docx') {

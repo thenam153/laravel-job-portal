@@ -11,7 +11,7 @@
 |
 */
 use App\Project;
-use DB;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 

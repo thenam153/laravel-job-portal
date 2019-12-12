@@ -226,6 +226,7 @@ class ProductController extends Controller
             $project->content = $request->content;
             $project->idCategory = $request->category;
             $project->price = $request->price;
+            $project->status = 'start';
             $skills = explode(',' , $request->skills);
             $project->skills = json_encode($skills);
             $project->save();

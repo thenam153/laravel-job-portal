@@ -10,14 +10,14 @@
                         <li><a href="https://www.instagram.com/namthe153/">IG</a></li>
                         <li><a href="https://github.com/thenam153">Github</a></li>
                         <li><a href="https://www.linkedin.com/">LinkIn</a></li>
-                        <li><a href="https://tinder.com/app/recs">Chưa có người yêu này</a></li>
+                        <li><a href="https://tinder.com/app/recs">Chưa có người yêu thật</a></li>
                     </ul>
                 </div>
             </div>
             <div class="col-lg-6  col-md-12">
                 <div class="single-footer-widget newsletter">
                     <h6>Đăng kí với chúng tôi</h6>
-                    <p>Tin mình đi</p>
+                    <p>Không tin mình cũng không sao</p>
                     <div id="mc_embed_signup">
                         <form target="_blank" novalidate="true" action="/subscribe" method="get" class="form-inline">
                             <div class="form-group row" style="width: 100%">

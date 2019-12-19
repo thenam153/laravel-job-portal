@@ -73,7 +73,7 @@
 									</ul>
 								</div>
 								<div class="details">
-									<div class="title d-flex flex-row justify-content-between">
+									<div class="title d-flex flex-row justify-content-between" style="width:75%;">
 										<div class="titles">
                                             <a href="/project/{{$project->id}}"><h4>{{$project->name}}</h4></a>
 										</div>

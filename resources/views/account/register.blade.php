@@ -67,7 +67,7 @@
                     <p style="color: red"><b>{{$errors->first('phone')}}</b></p>
                     @endif
                     <div class="wrap-input100 validate-input" data-validate="Enter number phone">
-						<input class="input100" type="text" name="phone" placeholder="Phone">
+						<input class="input100" type="text" name="phone" placeholder="Số điện thoại">
 						<!-- <span class="focus-input100" data-placeholder="&#xf191;"></span> -->
                     </div>
                     @if($errors->has('password'))

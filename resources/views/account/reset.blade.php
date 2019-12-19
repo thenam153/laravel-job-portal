@@ -50,12 +50,12 @@
                     @endif
 
 					<div class="wrap-input100 validate-input" data-validate="Enter password">
-						<input class="input100" type="password" name="password" placeholder="Password">
+						<input class="input100" type="password" name="password" placeholder="Mật khẩu">
 						<span class="focus-input100" data-placeholder="&#xf191;"></span>
 					</div>
 
                     <div class="wrap-input100 validate-input" data-validate="Enter re password">
-						<input class="input100" type="password" name="rePassword" placeholder="Password">
+						<input class="input100" type="password" name="rePassword" placeholder="Nhập lại mật khẩu">
 						<span class="focus-input100" data-placeholder="&#xf191;"></span>
 					</div>
                     @if($errors->has('errorPassword'))

@@ -18,7 +18,7 @@
 				<div class="container" style="margin-bottom:24px; padding:12px;">
 					<div class="row justify-content-center d-flex">
 						<div class="col-lg-12 post-list">
-							<div class="single-post job-experience" >
+							<div class="single-post job-experience" style="color:green;">
 								Dự án đã hoàn thành
 							</div>
 						</div>

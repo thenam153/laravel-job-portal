@@ -72,7 +72,7 @@
 
 					<div class="text-center p-t-90">
 						<a class="txt1" href="/forget">
-							Forgot Password?
+							Quên mật khẩu?
 						</a>
 					</div>
 					<div class="text-center p-t-10">

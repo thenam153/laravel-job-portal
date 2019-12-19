@@ -40,7 +40,7 @@
 					</span>
 
 					<span class="login100-form-title p-b-34 p-t-27">
-						Reset password
+						Đặt lại mật khẩu
 					</span>
 					@if($errors->has('errorLogin'))
                         <div class="alert alert-danger">
@@ -67,13 +67,13 @@
 
 					<div class="container-login100-form-btn">
 						<button class="login100-form-btn">
-							Reset
+							Đặt lại mật khẩu
 						</button>
 					</div>
 
 					<div class="text-center p-t-10">
 						<a class="txt1" href="/register">
-							Don't have account?
+							Bạn chưa có tài khoản?
 						</a>
 					</div>
 				</form>

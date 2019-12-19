@@ -39,7 +39,7 @@
 					</span>
 
 					<span class="login100-form-title p-b-34 p-t-27">
-						Log in
+						Đăng nhập
 					</span>
 					@if($errors->has('errorLogin'))
 					<div class="alert alert-danger">
@@ -60,13 +60,13 @@
 					<div class="contact100-form-checkbox">
 						<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember">
 						<label class="label-checkbox100" for="ckb1">
-							Remember me
+							Nhớ mật khẩu
 						</label>
 					</div>
 
 					<div class="container-login100-form-btn">
 						<button class="login100-form-btn">
-							Login
+							Đăng nhập
 						</button>
 					</div>
 
@@ -77,7 +77,7 @@
 					</div>
 					<div class="text-center p-t-10">
 						<a class="txt1" href="/register">
-							Don't have account?
+							Bạn chưa có tài khoản?
 						</a>
 					</div>
 				</form>

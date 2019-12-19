@@ -39,7 +39,7 @@
 					</span>
 
 					<span class="login100-form-title p-b-34 p-t-27">
-						Forget password
+						Quên mật khẩu
 					</span>
 					@if($errors->has('errorComfirmEmail'))
                         <div class="alert alert-danger">
@@ -59,7 +59,7 @@
 
 					<div class="container-login100-form-btn">
 						<button class="login100-form-btn">
-							Submit
+							Gửi
 						</button>
 					</div>
 				</form>

@@ -44,7 +44,7 @@
 					</span>
 
 					<span class="login100-form-title p-b-34 p-t-27">
-                        register
+                        Đăng ký
                     </span>
                     @if($errors->has('email'))
                     <p style="color: red"><b>{{$errors->first('email')}}</b></p>
@@ -90,7 +90,7 @@
 
 					<div class="container-login100-form-btn">
 						<button class="login100-form-btn">
-                            Register
+                            Đăng ký
 						</button>
 					</div>
 				</form>
